@@ -3,6 +3,7 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Mail, MapPin, Download } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
+import personalInfo from '../data/personal_info';
 
 export function Hero() {
   return (
@@ -16,12 +17,14 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h1 
-              className="mb-6"
+              className="mb-6 text-4xl font-bold leading-tight text-green-400"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Dr. [Your Name]
+              
+                {personalInfo.name}
+              
             </motion.h1>
             <motion.h2 
               className="mb-6 text-xl text-gray-600"
@@ -29,7 +32,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              PhD Candidate in [Your Field] | Researcher | Academic
+              {personalInfo.title}
             </motion.h2>
             <motion.p 
               className="mb-8 text-gray-700 leading-relaxed"
@@ -37,9 +40,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              Welcome to my academic portfolio. I am a dedicated researcher pursuing my PhD in [Your Field], 
-              with a passion for [Your Research Area]. My work focuses on [Brief Description of Research Focus], 
-              and I have presented my findings at international conferences while contributing to peer-reviewed publications.
+              {personalInfo.description}
             </motion.p>
             
             <motion.div 
@@ -53,14 +54,14 @@ export function Hero() {
                 whileHover={{ scale: 1.05 }}
               >
                 <MapPin size={16} />
-                <span>[Your University/Location]</span>
+                <span>{personalInfo.location}</span>
               </motion.div>
               <motion.div 
                 className="flex items-center gap-2 text-gray-600"
                 whileHover={{ scale: 1.05 }}
               >
                 <Mail size={16} />
-                <span>[your.email@university.edu]</span>
+                <span>{personalInfo.email}</span>
               </motion.div>
             </motion.div>
 
@@ -74,10 +75,12 @@ export function Hero() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button className="flex items-center gap-2">
-                  <Download size={16} />
-                  Download CV
-                </Button>
+                <a href={personalInfo.cv} target="_blank" rel="noopener noreferrer">
+                  <Button className="flex items-center gap-2">
+                    <Download size={16} />
+                    Download CV
+                  </Button>
+                </a>
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -106,7 +109,7 @@ export function Hero() {
                 transition={{ duration: 0.3 }}
               >
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1722648346323-f8fffa8e890d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhY2FkZW1pYyUyMGdyYWR1YXRpb24lMjB1bml2ZXJzaXR5fGVufDF8fHx8MTc1NDU1NzU5N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                  src={personalInfo.photo}
                   alt="Professional headshot"
                   className="w-full h-full object-cover rounded-full"
                 />

@@ -3,51 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Calendar, MapPin, Award } from 'lucide-react';
 import { motion } from 'motion/react';
+import {educationData, educationSummary} from '../data/education_data';
 
 export function Education() {
-  const educationData = [
-    {
-      degree: "PhD in [Your Field]",
-      institution: "[University Name]",
-      location: "[City, Country]",
-      period: "2021 - Present",
-      status: "In Progress",
-      description: "Dissertation: [Your Dissertation Title]. Research focus on [Research Area] with emphasis on [Specific Focus].",
-      achievements: [
-        "Graduate Research Fellowship",
-        "Teaching Assistant Award",
-        "Conference Presentation Award"
-      ]
-    },
-    {
-      degree: "Master of Science in [Your Field]",
-      institution: "[University Name]",
-      location: "[City, Country]",
-      period: "2019 - 2021",
-      status: "Completed",
-      gpa: "3.9/4.0",
-      description: "Thesis: [Your Thesis Title]. Specialized in [Specialization Area] with coursework in [Relevant Courses].",
-      achievements: [
-        "Magna Cum Laude",
-        "Graduate Student Excellence Award",
-        "Research Excellence Recognition"
-      ]
-    },
-    {
-      degree: "Bachelor of Science in [Your Field]",
-      institution: "[University Name]",
-      location: "[City, Country]",
-      period: "2015 - 2019",
-      status: "Completed",
-      gpa: "3.8/4.0",
-      description: "Major in [Major] with minor in [Minor]. Senior capstone project on [Project Title].",
-      achievements: [
-        "Dean's List (6 semesters)",
-        "Undergraduate Research Award",
-        "Academic Excellence Scholarship"
-      ]
-    }
-  ];
 
   return (
     <section id="education" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -61,8 +19,7 @@ export function Education() {
         >
           <h2 className="mb-4">Education</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            My academic journey spanning undergraduate studies through doctoral research, 
-            building expertise in [Your Field] and contributing to advancing knowledge in [Research Area].
+            {educationSummary.description}
           </p>
         </motion.div>
 
@@ -105,12 +62,12 @@ export function Education() {
                         <Calendar size={16} />
                         <span>{education.period}</span>
                       </div>
-                      {education.gpa && (
+                      {education.gpa || education.cgpa ? (
                         <div className="flex items-center gap-2">
                           <Award size={16} />
-                          <span>GPA: {education.gpa}</span>
+                          <span>{education.cgpa ? `CGPA: ${education.cgpa}` : `GPA: ${education.gpa}`}</span>
                         </div>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </div>

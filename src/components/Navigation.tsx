@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import personalInfo from '../data/personal_info';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +60,9 @@ export function Navigation() {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
           >
-            Dr. [Your Name]
+            <span className="text-2xl text-green-400 font-bold">
+               {personalInfo.name}                              {/* //✔️NAME */}
+            </span>
           </motion.div>
 
           {/* Desktop Menu */}

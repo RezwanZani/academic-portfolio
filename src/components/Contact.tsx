@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Mail, MapPin, Phone, Calendar, ExternalLink, Send } from 'lucide-react';
+import personalInfo from '../data/personal_info';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -19,25 +20,25 @@ export function Contact() {
     {
       icon: Mail,
       label: "Email",
-      value: "[your.email@university.edu]",
-      link: "mailto:[your.email@university.edu]"
+      value: personalInfo.email,
+      link: `mailto:${personalInfo.email}`
     },
     {
       icon: Phone,
       label: "Office Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567"
+      value: personalInfo.phone,
+      link: `tel:${personalInfo.phone}`
     },
     {
       icon: MapPin,
       label: "Office Location",
-      value: "[Building Name], Room [Number]\n[University Name]\n[City, State, ZIP]",
+      value:  personalInfo.officeLocation,
       link: null
     },
     {
       icon: Calendar,
       label: "Office Hours",
-      value: "Tuesdays & Thursdays\n2:00 PM - 4:00 PM\n(By appointment)",
+      value: personalInfo.officeHours,
       link: null
     }
   ];
@@ -45,22 +46,22 @@ export function Contact() {
   const socialLinks = [
     {
       name: "Google Scholar",
-      url: "https://scholar.google.com/citations?user=[YOUR_ID]",
+      url: personalInfo.googleScholar,
       description: "Academic publications and citations"
     },
     {
       name: "ResearchGate",
-      url: "https://www.researchgate.net/profile/[YOUR_PROFILE]",
+      url: personalInfo.researchGate,
       description: "Research profile and collaboration"
     },
     {
       name: "ORCID",
-      url: "https://orcid.org/[YOUR_ORCID_ID]",
+      url: personalInfo.orcid,
       description: "Academic identity and research outputs"
     },
     {
       name: "LinkedIn",
-      url: "https://www.linkedin.com/in/[YOUR_PROFILE]",
+      url: personalInfo.linkedin,
       description: "Professional networking"
     }
   ];
@@ -126,6 +127,7 @@ export function Contact() {
             <h3 className="mb-6">Academic Profiles</h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {socialLinks.map((link, index) => (
+                link.url && (
                 <Card key={index} className="hover:shadow-md transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between mb-2">
@@ -140,6 +142,7 @@ export function Contact() {
                     </Button>
                   </CardContent>
                 </Card>
+                )
               ))}
             </div>
           </div>
