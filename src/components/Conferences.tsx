@@ -2,90 +2,9 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Calendar, MapPin, Presentation, Users, Award } from 'lucide-react';
+import { conferences, conferenceSummary } from '../data/conferences_data';
 
 export function Conferences() {
-  const conferences = [
-    {
-      name: "International Conference on [Your Field] 2024",
-      location: "San Francisco, CA, USA",
-      date: "September 15-18, 2024",
-      role: "Oral Presenter",
-      presentation: "Advanced Methodologies in [Research Area]: Implementation and Results",
-      type: "International",
-      status: "Upcoming",
-      description: "Premier conference bringing together researchers from around the world to discuss cutting-edge developments in [field].",
-      activities: [
-        "Oral Presentation",
-        "Panel Discussion Participant",
-        "Networking Session"
-      ],
-      recognition: "Best Student Presentation Nominee"
-    },
-    {
-      name: "Annual Symposium on [Research Area] 2024",
-      location: "Boston, MA, USA",
-      date: "June 10-12, 2024",
-      role: "Poster Presenter",
-      presentation: "Innovative Approaches to [Specific Topic]: A Comprehensive Study",
-      type: "National",
-      status: "Completed",
-      description: "National symposium focused on emerging trends and methodologies in [research area].",
-      activities: [
-        "Poster Presentation",
-        "Workshop Attendance",
-        "Early Career Researcher Meetup"
-      ],
-      recognition: "Outstanding Poster Award"
-    },
-    {
-      name: "Graduate Research Conference 2023",
-      location: "Chicago, IL, USA",
-      date: "November 8-10, 2023",
-      role: "Keynote Attendee",
-      presentation: "Preliminary Findings in [Research Topic]",
-      type: "Regional",
-      status: "Completed",
-      description: "Regional conference showcasing graduate student research across multiple disciplines.",
-      activities: [
-        "Lightning Talk",
-        "Research Collaboration Session",
-        "Mentor Meetup"
-      ],
-      recognition: "Best Lightning Talk - 2nd Place"
-    },
-    {
-      name: "International Workshop on [Specialized Topic] 2023",
-      location: "London, UK",
-      date: "August 20-22, 2023",
-      role: "Workshop Participant",
-      presentation: "Methodological Innovations in [Area]: A Case Study",
-      type: "International",
-      status: "Completed",
-      description: "Specialized workshop focusing on advanced methodologies and collaborative research opportunities.",
-      activities: [
-        "Hands-on Workshop",
-        "Collaborative Research Planning",
-        "International Networking"
-      ],
-      recognition: "Workshop Excellence Certificate"
-    },
-    {
-      name: "Student Research Symposium 2023",
-      location: "[Your University], [City]",
-      date: "April 15, 2023",
-      role: "Oral Presenter",
-      presentation: "Early Stage PhD Research: [Your Topic]",
-      type: "Institutional",
-      status: "Completed",
-      description: "Annual university-wide symposium showcasing student research across all departments.",
-      activities: [
-        "Oral Presentation",
-        "Peer Review Session",
-        "Faculty Feedback Session"
-      ],
-      recognition: "Outstanding Presentation Award"
-    }
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -109,7 +28,7 @@ export function Conferences() {
     <section id="conferences" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="mb-4">Conference Presentations</h2>
+          <h2 className="mb-4 text-3xl font-bold text-primary">Conference Presentations</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Active participation in academic conferences, workshops, and symposiums, 
             sharing research findings and building professional networks in the academic community.
@@ -122,7 +41,7 @@ export function Conferences() {
               <CardHeader>
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                   <div className="flex-1">
-                    <CardTitle className="mb-3">{conference.name}</CardTitle>
+                    <CardTitle className="mb-3 text-lg font-semibold text-primary">{conference.name}</CardTitle>
                     <div className="grid sm:grid-cols-2 gap-2 mb-3">
                       <div className="flex items-center gap-2 text-gray-600">
                         <MapPin size={16} />
@@ -158,8 +77,8 @@ export function Conferences() {
               
               <CardContent>
                 <div className="mb-4">
-                  <h4 className="mb-2">Presentation Title</h4>
-                  <p className="text-gray-700 italic">{conference.presentation}</p>
+                  <h4 className="mb-2 font-normal">Presentation Title</h4>
+                  <p className="text-primary font-semibold italic">{conference.presentation}</p>
                 </div>
                 
                 <p className="text-gray-600 mb-4">
@@ -184,22 +103,19 @@ export function Conferences() {
           ))}
         </div>
 
+        {conferenceSummary.length > 0 && (
         <div className="text-center mt-12">
-          <div className="grid sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-2xl mb-2">12+</div>
-              <div className="text-gray-600">Conferences Attended</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl mb-2">8</div>
-              <div className="text-gray-600">Presentations Given</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl mb-2">4</div>
-              <div className="text-gray-600">Awards Received</div>
-            </div>
+          <div className="flex justify-between max-w-5xl mx-auto">
+            {conferenceSummary.map((item, index) => (
+              <div className="text-center" key={index}>
+                <div className="text-3xl font-semibold mb-2">{item.value}+</div>
+                <div className="text-gray-600">{item.title}</div>
+              </div>
+            ))}
+             
           </div>
         </div>
+        )} 
       </div>
     </section>
   );
