@@ -17,7 +17,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h1 
-              className="mb-6 text-4xl font-bold leading-tight text-green-400"
+              className="mb-6 text-4xl font-bold leading-tight text-primary"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -76,7 +76,7 @@ export function Hero() {
                 whileTap={{ scale: 0.95 }}
               >
                 <a href={personalInfo.cv} target="_blank" rel="noopener noreferrer">
-                  <Button className="flex items-center gap-2">
+                  <Button className="flex items-center gap-2 cursor-pointer">
                     <Download size={16} />
                     Download CV
                   </Button>
@@ -86,7 +86,7 @@ export function Hero() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button variant="outline" onClick={() => {
+                <Button variant="outline" className="cursor-pointer" onClick={() => {
                   const element = document.getElementById('contact');
                   if (element) element.scrollIntoView({ behavior: 'smooth' });
                 }}>
