@@ -45,7 +45,7 @@ export function Education() {
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div>
                     <CardTitle className="flex items-center gap-3 mb-2">
-                      <span>{education.degree}</span>
+                      <span className='text-lg font-semibold text-primary'>{education.degree}</span>
                       <Badge 
                         variant={education.status === 'In Progress' ? 'default' : 'secondary'}
                         className={education.status === 'In Progress' ? 'bg-green-600' : ''}
@@ -56,7 +56,7 @@ export function Education() {
                     <div className="flex flex-col sm:flex-row gap-4 text-gray-600">
                       <div className="flex items-center gap-2">
                         <MapPin size={16} />
-                        <span>{education.institution}, {education.location}</span>
+                        <span><span className="font-semibold">{education.institution}</span>, {education.location}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Calendar size={16} />
@@ -78,7 +78,7 @@ export function Education() {
                 </p>
                 
                 <div>
-                  <h4 className="mb-3">Key Achievements</h4>
+                  <h4 className="mb-3 text-primary">Key Achievements</h4>
                   <div className="flex flex-wrap gap-2">
                     {education.achievements.map((achievement, achIndex) => (
                       <motion.div
