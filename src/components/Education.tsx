@@ -17,7 +17,7 @@ export function Education() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="mb-4">Education</h2>
+          <h2 className="mb-4 text-3xl font-bold text-primary">Education</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             {educationSummary.description}
           </p>
