@@ -21,11 +21,11 @@ export function Experience() {
       <CardHeader>
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
           <div className="flex-1">
-            <CardTitle className="mb-2">{experience.title}</CardTitle>
+            <CardTitle className="mb-2 text-lg font-semibold text-primary">{experience.title}</CardTitle>
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-gray-600">
                 <Building size={16} />
-                <span>{experience.organization}</span>
+                <span className="font-semibold">{experience.organization}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600">
                 <MapPin size={16} />
@@ -56,7 +56,7 @@ export function Experience() {
         
         {experience.responsibilities && (
           <div className="mb-4">
-            <h4 className="mb-2">Key Responsibilities</h4>
+            <h4 className="mb-2 text-green-600">Key Responsibilities</h4>
             <ul className="text-gray-700 text-sm space-y-1">
               {experience.responsibilities.map((resp: string, index: number) => (
                 <li key={index} className="flex items-start gap-2">
@@ -70,7 +70,7 @@ export function Experience() {
         
         {experience.skills && (
           <div className="mb-4">
-            <h4 className="mb-2">Skills Developed</h4>
+            <h4 className="mb-2 text-green-600">Skills Developed</h4>
             <div className="flex flex-wrap gap-2">
               {experience.skills.map((skill: string, skillIndex: number) => (
                 <motion.div
@@ -92,7 +92,7 @@ export function Experience() {
         
         {experience.achievements && (
           <div>
-            <h4 className="mb-2 flex items-center gap-2">
+            <h4 className="mb-2 flex items-center gap-2 text-green-600">
               <Award size={16} className="text-amber-600" />
               Key Achievements
             </h4>
