@@ -254,7 +254,7 @@ export function Contact() {
           </a>
         </p>
         <p className="mt-2 text-sm text-slate-500">
-          Base design and React components by 
+          Base design by 
           <a href="https://www.figma.com/community/file/1535220348867490165" className="underline ml-1">Ashish Gautam</a>. 
           Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. 
           Modified for personal branding.
