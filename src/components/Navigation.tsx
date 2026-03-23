@@ -60,7 +60,7 @@ export function Navigation() {
             transition={{ duration: 0.5, delay: 0.4 }}
             whileHover={{ scale: 1.05 }}
           >
-            <span className="text-2xl text-green-400 font-bold">
+            <span className="text-2xl text-primary font-bold">
                {personalInfo.name}                              {/* //✔️NAME */}
             </span>
           </motion.div>

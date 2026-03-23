@@ -246,6 +246,20 @@ export function Contact() {
           </div>
         </div>
       </div>
+      <footer className="py-6 border-t border-slate-200 text-center mt-5">
+        <p className="text-sm text-slate-500">
+          © 2026 Tyseer Ninad. Built with ❤️ by 
+          <a href="https://rezwanzani.me" className="hover:text-blue-600 font-medium ml-1">
+            Md. Rezwan Zani
+          </a>
+        </p>
+        <p className="mt-2 text-sm text-slate-500">
+          Base design and React components by 
+          <a href="https://www.figma.com/community/file/1535220348867490165" className="underline ml-1">Ashish Gautam</a>. 
+          Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. 
+          Modified for personal branding.
+        </p>
+      </footer>
     </section>
   );
 }

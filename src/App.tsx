@@ -24,3 +24,10 @@ export default function App() {
     </div>
   );
 }
+
+/*
+ * Original design and React structure by [Creator Name].
+ * Source: [Figma Community Link]
+ * Licensed under CC BY 4.0.
+ * Adapted and customized by Tyseer Ninad.
+ */
