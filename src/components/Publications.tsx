@@ -88,7 +88,7 @@ export function Publications() {
           </p>
         </div>
 
-        <Tabs defaultValue="peer-reviewed" className="w-full">
+        <Tabs defaultValue={publications["peer-reviewed"].length > 0 ? "peer-reviewed" : "conference" } className="w-full">
           <TabsList className="flex justify-between w-full mb-8">
             {publications['peer-reviewed'].length > 0 && (
               <TabsTrigger value="peer-reviewed">
