@@ -23,6 +23,10 @@ export default function App() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <main>
+        {/* Decoration: Faint Grid Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        <div className="container mx-auto max-w-[1400px] xl:max-w-[1200px] 2xl:max-w-[1280px] relative z-10"></div>
+
         <Hero />
         <Education />
         <Experience />

@@ -20,6 +20,8 @@ This Academic Portfolio project makes use of several fantastic open-source libra
 
 - **Developer**: Built with ❤️ by [Md. Rezwan Zani](https://rezwanzani.me).
 - **Base Design**: Created by [Ashish Gautam](https://www.figma.com/community/file/1535220348867490165). Adapted for personal branding under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+- **Source Code**: [GitHub Repository](https://github.com/RezwanZani/academic-portfolio)
+- **Owner**: [Tyseer Ninad](mailto:[EMAIL_ADDRESS])
 - **Content Owner**: Copyright © 2026 Tyseer Ninad. All rights reserved.
 
 *If you replace the images, text, or components with your own proprietary materials, please ensure you have the appropriate rights to do so.*
