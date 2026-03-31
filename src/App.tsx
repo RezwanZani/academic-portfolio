@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
+import { Skills } from './components/Skills';
 import { Education } from './components/Education';
 import { Experience } from './components/Experience';
 import { Publications } from './components/Publications';
@@ -28,6 +29,7 @@ export default function App() {
         <div className="container mx-auto max-w-[1400px] xl:max-w-[1200px] 2xl:max-w-[1280px] relative z-10"></div>
 
         <Hero />
+        <Skills />
         <Education />
         <Experience />
         <Publications />
