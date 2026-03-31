@@ -10,10 +10,11 @@ export function Navigation() {
   const menuItems = [
     { id: 'hero', label: 'Home' },
     { id: 'education', label: 'Education' },
+    { id: 'research-interests', label: 'Research' },
+    { id: 'projects-fundings', label: 'Projects' },
     { id: 'experience', label: 'Experience' },
-    { id: 'publications', label: 'Publications' },
-    { id: 'conferences', label: 'Conferences' },
-    { id: 'phd-journey', label: 'PhD Journey' },
+    { id: 'activities', label: 'Activities' },
+    { id: 'phd-journey', label: 'Awards' },
     { id: 'contact', label: 'Contact' },
   ];
 
