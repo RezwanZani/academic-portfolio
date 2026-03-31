@@ -6,6 +6,7 @@ import { Education } from './components/Education';
 import { ResearchInterests } from './components/ResearchInterests';
 import { Experience } from './components/Experience';
 import { Publications } from './components/Publications';
+import { ProjectsFundings } from './components/ProjectsFundings';
 import { Conferences } from './components/Conferences';
 import { Journey } from './components/Journey';
 import { Contact } from './components/Contact';
@@ -34,6 +35,7 @@ export default function App() {
         <Education />
         <ResearchInterests />
         <Publications />
+        <ProjectsFundings />
         <Experience />
         <Conferences />
         <Journey />
