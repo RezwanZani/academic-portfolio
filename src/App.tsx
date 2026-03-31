@@ -3,6 +3,7 @@ import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
 import { Education } from './components/Education';
+import { ResearchInterests } from './components/ResearchInterests';
 import { Experience } from './components/Experience';
 import { Publications } from './components/Publications';
 import { Conferences } from './components/Conferences';
@@ -31,8 +32,9 @@ export default function App() {
         <Hero />
         <Skills />
         <Education />
-        <Experience />
+        <ResearchInterests />
         <Publications />
+        <Experience />
         <Conferences />
         <Journey />
         <Contact />
