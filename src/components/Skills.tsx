@@ -62,7 +62,7 @@ export function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-primary mb-6 tracking-tight">Technical & Professional Profile</h2>
+          <h2 className="text-3xl font-bold text-primary mb-6 tracking-tight">Technical & Professional Profile</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
             A comprehensive overview of my technical capabilities, research interests, and the tools I utilize to bridge the gap between theoretical concepts and practical applications.
           </p>

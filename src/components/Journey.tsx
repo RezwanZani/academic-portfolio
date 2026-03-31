@@ -5,7 +5,7 @@ import { Progress } from './ui/progress';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { CheckCircle, Clock, Target, BookOpen, Users, Award } from 'lucide-react';
 import { motion } from 'motion/react';
-import { milestones, currentResearch, achievements, researchEnvironment } from '../data/journey_data';
+import { milestones, currentResearch, awardsAndAchievements, researchEnvironment } from '../data/journey_data';
 
 export function Journey() {
   const [progressValue, setProgressValue] = useState(0);
@@ -178,9 +178,9 @@ export function Journey() {
 
         {/* Achievements Grid */}
         <div>
-          <h3 className="mb-6 text-center text-lg font-semibold text-green-600">Academic Achievements</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {achievements.map((achievement, index) => (
+          <h3 className="mb-6 text-center text-lg font-semibold text-green-600">Awards and Achievements</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {awardsAndAchievements.map((achievement, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -189,11 +189,11 @@ export function Journey() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
               >
-                <Card className="text-center h-full">
-                  <CardContent className="pt-6">
+                <Card className="text-center h-full border-green-100 shadow-sm transition-all hover:border-green-300">
+                  <CardContent className="pt-6 px-5 pb-6 flex flex-col items-center h-full">
                     <div className="flex justify-center mb-4">
                       <motion.div 
-                        className="p-3 bg-green-50 rounded-full"
+                        className="p-3 bg-green-50 rounded-xl"
                         initial={{ scale: 0 }}
                         whileInView={{ scale: 1 }}
                         viewport={{ once: true }}
@@ -203,8 +203,13 @@ export function Journey() {
                         <achievement.icon className="text-green-600" size={24} />
                       </motion.div>
                     </div>
-                    <h4 className="mb-2">{achievement.title}</h4>
-                    <p className="text-gray-600 text-sm">
+                    <h4 className="mb-1 text-[15px] font-bold text-gray-900">{achievement.title}</h4>
+                    <div className="text-xs text-gray-500 mb-3 font-medium flex items-center gap-1">
+                      <span>{achievement.issuer}</span>
+                      <span className="text-gray-300">•</span>
+                      <span>{achievement.year}</span>
+                    </div>
+                    <p className="text-gray-600 text-sm leading-relaxed flex-grow">
                       {achievement.description}
                     </p>
                   </CardContent>

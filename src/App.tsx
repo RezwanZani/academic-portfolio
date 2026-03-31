@@ -3,11 +3,14 @@ import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { Skills } from './components/Skills';
 import { Education } from './components/Education';
+import { ResearchInterests } from './components/ResearchInterests';
 import { Experience } from './components/Experience';
 import { Publications } from './components/Publications';
-import { Conferences } from './components/Conferences';
+import { ProjectsFundings } from './components/ProjectsFundings';
+import { Activities } from './components/Activities';
 import { Journey } from './components/Journey';
 import { Contact } from './components/Contact';
+import ParticleBackground from './components/ParticleBackground';
 
 /*
  * Github: https://github.com/RezwanZani/academic-portfolio
@@ -21,19 +24,22 @@ import { Contact } from './components/Contact';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-transparent relative">
       <Navigation />
       <main>
         {/* Decoration: Faint Grid Background */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
         <div className="container mx-auto max-w-[1400px] xl:max-w-[1200px] 2xl:max-w-[1280px] relative z-10"></div>
+        <ParticleBackground darkMode={false} />
 
         <Hero />
         <Skills />
         <Education />
-        <Experience />
+        <ResearchInterests />
         <Publications />
-        <Conferences />
+        <ProjectsFundings />
+        <Experience />
+        <Activities />
         <Journey />
         <Contact />
       </main>
