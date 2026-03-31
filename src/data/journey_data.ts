@@ -1,4 +1,4 @@
-import { Award, BookOpen, Users, Target } from "lucide-react";
+import { Award, BookOpen, Users, Target, Trophy, Medal, GraduationCap, Star, Cpu } from "lucide-react";
 
 export const milestones = [
   {
@@ -56,26 +56,48 @@ export const currentResearch = {
   progress: 100
 };
 
-export const achievements = [
+export const awardsAndAchievements = [
   {
-    icon: Award,
     title: "Best Thesis Poster Presentation",
-    description: "Awarded for the undergraduate thesis on UAV network privacy and distributed learning (2026)."
+    year: 2026,
+    issuer: "Aviation and Aerospace University, Bangladesh",
+    description: "Awarded for the undergraduate thesis presentation on privacy-preserving Automatic Modulation Recognition.",
+    icon: Award
   },
   {
-    icon: BookOpen,
-    title: "Merit-Based Scholarships",
-    description: "Recipient of Vice Chancellor and General Scholarships for academic excellence."
+    title: "Finalist (11th) - Anatolian Rover Challenge",
+    year: 2025,
+    issuer: "Anatolian Rover Challenge, Turkey",
+    description: "Secured a global ranking of 11th in the final round and 8th in the qualification round in the team's first participation.",
+    icon: Trophy
   },
   {
-    icon: Users,
-    title: "Global Robotics Ranking",
-    description: "Secured 8th and 11th global rankings in the Anatolian Rover Challenge 2025."
+    title: "Silver Honor - IAAC",
+    year: 2023,
+    issuer: "Int. Astronomy and Astrophysics Competition",
+    description: "Achieved Silver Honor in the final round of this international competition.",
+    icon: Medal
   },
   {
-    icon: Target,
-    title: "IEEE Conference Publications",
-    description: "Authored 6 IEEE conference papers on robotics, communication, and deep learning."
+    title: "Merit Scholarships",
+    year: "2022 - 2025",
+    issuer: "AAUB",
+    description: "Awarded Vice Chancellor and General Scholarships for consistent high academic performance (GPA up to 3.89/4.00).",
+    icon: GraduationCap
+  },
+  {
+    title: "Certification of Excellence (Vice Team Lead)",
+    year: 2025,
+    issuer: "AAUB Rover 71",
+    description: "Recognized for leadership and operational management of the indigenous Mars Rover project.",
+    icon: Star
+  },
+  {
+    title: "BEAR Patron",
+    year: 2025,
+    issuer: "BEAR Summit & National Semiconductor Symposium",
+    description: "Selected to participate in national policy dialogues on AI, robotics, and semiconductor innovation under the EDGE Project.",
+    icon: Cpu
   }
 ];
 
