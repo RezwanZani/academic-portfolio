@@ -7,7 +7,7 @@ import { ResearchInterests } from './components/ResearchInterests';
 import { Experience } from './components/Experience';
 import { Publications } from './components/Publications';
 import { ProjectsFundings } from './components/ProjectsFundings';
-import { Conferences } from './components/Conferences';
+import { Activities } from './components/Activities';
 import { Journey } from './components/Journey';
 import { Contact } from './components/Contact';
 
@@ -37,7 +37,7 @@ export default function App() {
         <Publications />
         <ProjectsFundings />
         <Experience />
-        <Conferences />
+        <Activities />
         <Journey />
         <Contact />
       </main>
