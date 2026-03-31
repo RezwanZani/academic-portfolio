@@ -1,5 +1,4 @@
 export const publications = {
-  'peer-reviewed': [], // All items in the CV are conference-based IEEE publications.
   'conference': [
     {
       title: "Electro-Mechanical Design Analysis and Implementation of an Indigenous Mars Rover",
@@ -68,15 +67,17 @@ export const publications = {
       keywords: ["Transfer Learning", "Deep Feature Extraction", "Rock Classification", "Computer Vision"]
     }
   ],
-  'working-papers': [
+  'journal': [],
+  'thesis': [
     {
       title: "Privacy Preserving Automatic Modulation Recognition for UAV Networks using Distributed Learning",
       authors: ["Tyseer Ninad", "M. E. Rahman", "M. A. Jamil"],
       year: 2026,
-      status: "Thesis Completed",
+      status: "Completed",
       journal: "Undergraduate Thesis - Department of Avionics Engineering (AAUB)",
       abstract: "This thesis proposes a privacy-preserving solution for Automatic Modulation Recognition (AMR) in UAV-assisted networks, leveraging decentralized federated learning (DFL) and the OTFS Delay-Doppler domain. The framework achieves up to 100% accuracy at 6 dB SNR while optimizing communication privacy.",
       keywords: ["Privacy Preserving", "UAV Networks", "Federated Learning", "AMR", "OTFS"]
     }
-  ]
+  ],
+  'working-papers': []
 };

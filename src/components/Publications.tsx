@@ -50,8 +50,9 @@ export function Publications() {
         <div className="flex items-center gap-2 text-gray-600">
           <Calendar size={16} />
           <span className="text-sm">
-            {type === 'peer-reviewed' ? `${pub.journal}, ${pub.year}` : 
+            {type === 'journal' ? `${pub.journal}, ${pub.year}` : 
              type === 'conference' ? `${pub.conference}, ${pub.year}` :
+             type === 'thesis' ? `${pub.year} - ${pub.journal || 'Thesis'}` :
              `${pub.year} - ${pub.journal || 'Manuscript'}`}
           </span>
         </div>
@@ -88,16 +89,21 @@ export function Publications() {
           </p>
         </div>
 
-        <Tabs defaultValue={publications["peer-reviewed"].length > 0 ? "peer-reviewed" : "conference" } className="w-full">
+        <Tabs defaultValue={publications["conference"].length > 0 ? "conference" : "journal" } className="w-full">
           <TabsList className="flex justify-between w-full mb-8">
-            {publications['peer-reviewed'].length > 0 && (
-              <TabsTrigger value="peer-reviewed">
-                Peer-Reviewed ({publications['peer-reviewed'].length})
-              </TabsTrigger>
-            )}
             {publications['conference'].length > 0 && (
               <TabsTrigger value="conference">
                 Conference Papers ({publications['conference'].length})
+              </TabsTrigger>
+            )}
+            {publications['journal'].length > 0 && (
+              <TabsTrigger value="journal">
+                Journal ({publications['journal'].length})
+              </TabsTrigger>
+            )}
+            {publications['thesis'].length > 0 && (
+              <TabsTrigger value="thesis">
+                Thesis ({publications['thesis'].length})
               </TabsTrigger>
             )}
             {publications['working-papers'].length > 0 && (
@@ -107,18 +113,26 @@ export function Publications() {
             )}
           </TabsList>
 
-          <TabsContent value="peer-reviewed">
-            <div className="grid md:grid-cols-2 gap-6">
-              {publications['peer-reviewed'].map((pub, index) => (
-                <PublicationCard key={index} pub={pub} type="peer-reviewed" index={index} />
-              ))}
-            </div>
-          </TabsContent>
-
           <TabsContent value="conference">
             <div className="grid md:grid-cols-2 gap-6">
               {publications['conference'].map((pub, index) => (
                 <PublicationCard key={index} pub={pub} type="conference" index={index} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="journal">
+            <div className="grid md:grid-cols-2 gap-6">
+              {publications['journal'].map((pub, index) => (
+                <PublicationCard key={index} pub={pub} type="journal" index={index} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="thesis">
+            <div className="grid md:grid-cols-2 gap-6">
+              {publications['thesis'].map((pub, index) => (
+                <PublicationCard key={index} pub={pub} type="thesis" index={index} />
               ))}
             </div>
           </TabsContent>
