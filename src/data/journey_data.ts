@@ -2,28 +2,10 @@ import { Award, BookOpen, Users, Target, Trophy, Medal, GraduationCap, Star, Cpu
 
 export const milestones = [
   {
-    title: "Avionics Engineering Program Admission",
-    date: "January 2022",
-    status: "completed",
-    description: "Admitted to the Bachelor of Science in Avionics Engineering at AAUB."
-  },
-  {
-    title: "Academic Merit Scholarships",
-    date: "2023 - 2025",
-    status: "completed",
-    description: "Awarded Vice Chancellor and General Scholarships for consistent high GPA performance."
-  },
-  {
-    title: "AAUB Rover 71 Project Launch",
-    date: "October 2023",
-    status: "completed",
-    description: "Founded and led end-to-end technical and administrative operations for the rover team."
-  },
-  {
-    title: "Anatolian Rover Challenge Finals",
-    date: "2025",
-    status: "completed",
-    description: "Represented Bangladesh as a global finalist (11th place) in Ankara, Turkey."
+    title: "BSCL Technology Internship",
+    date: "February 2026 - Present",
+    status: "in-progress",
+    description: "Supporting satellite service planning and ground segment architecture activities."
   },
   {
     title: "Undergraduate Thesis Defense",
@@ -32,10 +14,28 @@ export const milestones = [
     description: "Successfully defended thesis on privacy-preserving AMR for UAV networks."
   },
   {
-    title: "BSCL Technology Internship",
-    date: "February 2026 - Present",
-    status: "in-progress",
-    description: "Supporting satellite service planning and ground segment architecture activities."
+    title: "Anatolian Rover Challenge Finals",
+    date: "2025",
+    status: "completed",
+    description: "Represented Bangladesh as a global finalist (11th place) in Ankara, Turkey."
+  },
+  {
+    title: "AAUB Rover 71 Project Launch",
+    date: "October 2023",
+    status: "completed",
+    description: "Founded and led end-to-end technical and administrative operations for the rover team."
+  },
+  {
+    title: "Academic Merit Scholarships",
+    date: "2023 - 2025",
+    status: "completed",
+    description: "Awarded Vice Chancellor and General Scholarships for consistent high GPA performance."
+  },
+  {
+    title: "Avionics Engineering Program Admission",
+    date: "January 2022",
+    status: "completed",
+    description: "Admitted to the Bachelor of Science in Avionics Engineering at AAUB."
   }
 ];
 

@@ -2,7 +2,7 @@ export const educationData = [
   {
     degree: "Bachelor of Science in Avionics Engineering",
     institution: "Aviation and Aerospace University, Bangladesh (AAUB)",
-    location: "Dhaka, Bangladesh",
+    location: "Lalmonirhat, Bangladesh",
     period: "JAN 2022 - JAN 2026",
     status: "Completed",
     cgpa: "3.49/4.00",

@@ -70,7 +70,7 @@ export function Education() {
                         {education.gpa || education.cgpa ? (
                           <div className="flex items-center gap-2">
                             <Award size={16} />
-                            <span>{education.cgpa ? `CGPA: ${education.cgpa}` : `GPA: ${education.gpa}`}</span>
+                            <span className='font-bold'>{education.cgpa ? `CGPA: ${education.cgpa}` : `GPA: ${education.gpa}`}</span>
                           </div>
                         ) : null}
                       </div>
