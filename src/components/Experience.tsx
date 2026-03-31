@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Calendar, MapPin, Building, GraduationCap, Users, Code, Award } from 'lucide-react';
+import { Calendar, MapPin, Building, GraduationCap, Users, Award, BookOpen } from 'lucide-react';
 import { motion } from 'motion/react';
 import { experiences, experienceSummary } from '../data/experience_data';
 
@@ -56,7 +56,7 @@ export function Experience() {
         
         {experience.responsibilities && (
           <div className="mb-4">
-            <h4 className="mb-2 text-green-600">Key Responsibilities</h4>
+            <h4 className="mb-2 text-green-600">Key Responsibilities & Activities</h4>
             <ul className="text-gray-700 text-sm space-y-1">
               {experience.responsibilities.map((resp: string, index: number) => (
                 <li key={index} className="flex items-start gap-2">
@@ -70,7 +70,7 @@ export function Experience() {
         
         {experience.skills && (
           <div className="mb-4">
-            <h4 className="mb-2 text-green-600">Skills Developed</h4>
+            <h4 className="mb-2 text-green-600">Skills & Knowledge</h4>
             <div className="flex flex-wrap gap-2">
               {experience.skills.map((skill: string, skillIndex: number) => (
                 <motion.div
@@ -115,46 +115,59 @@ export function Experience() {
     <section id="experience" className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="mb-4 text-3xl font-bold text-primary">Professional Experience</h2>
+          <h2 className="mb-4 text-3xl font-bold text-primary">Experience and Development</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            A comprehensive overview of my academic, teaching, industry, and service experiences 
-            that have shaped my professional development and research expertise.
+            A comprehensive overview of my industry roles, academic research, industrial training, and leadership experiences 
+            that have shaped my professional growth.
           </p>
         </div>
 
-        <Tabs defaultValue="academic" className="w-full">
-          <TabsList className="mb-8 flex w-full items-stretch gap-1 overflow-x-hidden">
-            { experiences.academic.length > 0 && (
-            <TabsTrigger value="academic" className="flex flex-1 items-center justify-center gap-0 px-2 sm:gap-2">
-              <GraduationCap size={16} />
-              <span className="hidden sm:inline">Academic</span>
-            </TabsTrigger>
-            )}
-            { experiences.teaching.length > 0 && (
-            <TabsTrigger value="teaching" className="flex flex-1 items-center justify-center gap-0 px-2 sm:gap-2">
-              <Users size={16} />
-              <span className="hidden sm:inline">Teaching</span>
-            </TabsTrigger>
-            )}
+        <Tabs defaultValue="industry" className="w-full">
+          <TabsList className="mb-8 flex w-full items-stretch gap-1 overflow-x-hidden pt-2 pb-2">
             { experiences.industry.length > 0 && (
-
             <TabsTrigger value="industry" className="flex flex-1 items-center justify-center gap-0 px-2 sm:gap-2">
               <Building size={16} />
               <span className="hidden sm:inline">Industry</span>
             </TabsTrigger>
             )}
-            { experiences.service.length > 0 && (
-            <TabsTrigger value="service" className="flex flex-1 items-center justify-center gap-0 px-2 sm:gap-2">
-              <Award size={16} />
-              <span className="hidden sm:inline">Service</span>
+            { experiences.academic.length > 0 && (
+            <TabsTrigger value="academic" className="flex flex-1 items-center justify-center gap-0 px-2 sm:gap-2">
+              <BookOpen size={16} />
+              <span className="hidden sm:inline">Academic Research</span>
+            </TabsTrigger>
+            )}
+            { experiences.training.length > 0 && (
+            <TabsTrigger value="training" className="flex flex-1 items-center justify-center gap-0 px-2 sm:gap-2">
+              <GraduationCap size={16} />
+              <span className="hidden sm:inline">Training</span>
+            </TabsTrigger>
+            )}
+            { experiences.leadership.length > 0 && (
+            <TabsTrigger value="leadership" className="flex flex-1 items-center justify-center gap-0 px-2 sm:gap-2">
+              <Users size={16} />
+              <span className="hidden sm:inline">Leadership</span>
             </TabsTrigger>
             )}
           </TabsList>
 
+          <TabsContent value="industry">
+            <div className="space-y-6">
+              <div className="text-center mb-8">
+                <h3 className="mb-2">Industry Roles & Internships</h3>
+                <p className="text-gray-600">
+                  Professional positions and internships providing practical application of engineering and technical skills
+                </p>
+              </div>
+              {experiences.industry.map((exp, index) => (
+                <ExperienceCard key={index} experience={exp} index={index} />
+              ))}
+            </div>
+          </TabsContent>
+
           <TabsContent value="academic">
             <div className="space-y-6">
               <div className="text-center mb-8">
-                <h3 className="mb-2">Academic & Research Experience</h3>
+                <h3 className="mb-2">Academic Research</h3>
                 <p className="text-gray-600">
                   Research positions and academic roles that have contributed to my scholarly development
                 </p>
@@ -165,43 +178,29 @@ export function Experience() {
             </div>
           </TabsContent>
 
-          <TabsContent value="teaching">
+          <TabsContent value="training">
             <div className="space-y-6">
               <div className="text-center mb-8">
-                <h3 className="mb-2">Teaching Experience</h3>
+                <h3 className="mb-2">Industrial Training</h3>
                 <p className="text-gray-600">
-                  Educational roles and instructional experience across different academic levels
+                  Field visits and specialized training programs with major industry stakeholders
                 </p>
               </div>
-              {experiences.teaching.map((exp, index) => (
+              {experiences.training.map((exp, index) => (
                 <ExperienceCard key={index} experience={exp} index={index} />
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="industry">
+          <TabsContent value="leadership">
             <div className="space-y-6">
               <div className="text-center mb-8">
-                <h3 className="mb-2">Industry Experience</h3>
-                <p className="text-gray-600">
-                  Professional positions and internships that provide practical application of academic knowledge
-                </p>
-              </div>
-              {experiences.industry.map((exp, index) => (
-                <ExperienceCard key={index} experience={exp} index={index} />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="service">
-            <div className="space-y-6">
-              <div className="text-center mb-8">
-                <h3 className="mb-2">Service & Leadership</h3>
+                <h3 className="mb-2">Leadership, Clubs & Volunteering</h3>
                 <p className="text-gray-600">
                   Volunteer positions and leadership roles contributing to the academic and professional community
                 </p>
               </div>
-              {experiences.service.map((exp, index) => (
+              {experiences.leadership.map((exp, index) => (
                 <ExperienceCard key={index} experience={exp} showSupervisor={false} index={index} />
               ))}
             </div>

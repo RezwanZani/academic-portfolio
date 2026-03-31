@@ -1,27 +1,27 @@
 export const experiences = {
-  academic: [
+  industry: [
     {
-      title: "Founder & Vice Team Lead",
-      organization: "AAUB Rover 71",
-      location: "Lalmonirhat, Bangladesh",
-      period: "OCT 2023 - SEP 2025",
-      type: "Full-time",
-      supervisor: "Assistant Professor Dr. S. M. Sadakatul Bari",
-      description: "Led end-to-end administrative, technical, financial, and sponsorship operations across multiple workstreams and cross-functional teams, representing AAUB and Bangladesh in internationally benchmarked events.",
+      title: "Intern (Technology, Planning & Implementation)",
+      organization: "Bangladesh Satellite Company Limited",
+      location: "Dhaka, Bangladesh",
+      period: "FEB 2026 - PRESENT",
+      type: "Internship",
+      description: "Supporting satellite service planning and implementation activities with exposure to GEO operations and ground segment architecture.",
       responsibilities: [
-        "Planned, designed, and delivered two versions of 'AAUB Rover 71'",
-        "Converted conceptual designs into operational systems through field-level testing",
-        "Coordinated project outcomes through structured presentations",
-        "Managed global collaboration and technology awareness initiatives",
-        "Supervised cross-functional teams for internationally benchmarked rover competitions"
+        "Analyzed satellite communication networks and link budgets",
+        "Studied traffic flow to understand network performance and architecture",
+        "Assisted in capacity planning and service performance monitoring",
+        "Prepared technical reports aligned with operational and regulatory standards",
+        "Gained hands-on exposure to VSAT service workflow"
       ],
-      skills: ["System Modeling", "Prototyping", "Project Management", "Technical Reporting", "Testing"],
+      skills: ["Data Analysis", "Network Performance", "Link Budget Analysis", "Technical Writing", "Satellite Communication"],
       achievements: [
-        "Secured global ranking of 8th at the Qualification Round of Anatolian Rover Challenge 2025",
-        "Secured global ranking of 11th at the Final Round of Anatolian Rover Challenge 2025",
-        "Authored 4 distinct Conference Papers at international flagship platforms"
+        "Developed comprehensive technical reports for satellite network traffic",
+        "Identified key operational efficiencies in ground segment architecture"
       ]
-    },
+    }
+  ],
+  academic: [
     {
       title: "Undergraduate Researcher",
       organization: "Department of Avionics Engineering, AAUB",
@@ -45,35 +45,13 @@ export const experiences = {
       ]
     }
   ],
-  teaching: [],
-
-  industry: [
-    {
-      title: "Intern (Technology, Planning & Implementation)",
-      organization: "Bangladesh Satellite Company Limited",
-      location: "Dhaka, Bangladesh",
-      period: "FEB 2026 - PRESENT",
-      type: "Internship",
-      description: "Supporting satellite service planning and implementation activities with exposure to GEO operations and ground segment architecture.",
-      responsibilities: [
-        "Analyzed satellite communication networks and link budgets",
-        "Studied traffic flow to understand network performance and architecture",
-        "Assisted in capacity planning and service performance monitoring",
-        "Prepared technical reports aligned with operational and regulatory standards",
-        "Gained hands-on exposure to VSAT service workflow"
-      ],
-      skills: ["Data Analysis", "Network Performance", "Link Budget Analysis", "Technical Writing", "Satellite Communication"],
-      achievements: [
-        "Developed comprehensive technical reports for satellite network traffic",
-        "Identified key operational efficiencies in ground segment architecture"
-      ]
-    },
+  training: [
     {
       title: "Industrial Trainee",
       organization: "Biman Bangladesh Airlines",
       location: "Dhaka, Bangladesh",
       period: "JUN 2024 - JUL 2024",
-      type: "Internship",
+      type: "Training",
       description: "Gained practical knowledge of airline operations, aircraft maintenance, and aviation safety protocols through industrial training.",
       responsibilities: [
         "Explored systems and structural design of Boeing 787, 777, and 737",
@@ -87,10 +65,48 @@ export const experiences = {
         "Completed rotation across multiple aircraft platforms (Boeing & Dash 8)",
         "Gained professional exposure to high-capacity commercial aviation workflows"
       ]
+    },
+    {
+      title: "Radar Station Visit",
+      organization: "Hazrat Shahjalal International Airport (HSIA)",
+      location: "Dhaka, Bangladesh",
+      period: "2024",
+      type: "Industrial Visit",
+      description: "Participated in an extensive field visit to the Primary and Secondary Surveillance Radar installations.",
+      responsibilities: [
+        "Observed Air Traffic Control (ATC) communication and navigation protocols",
+        "Studied operational principles of Primary and Secondary Surveillance Radars",
+        "Reviewed integrated aviation security and surveillance frameworks"
+      ],
+      skills: ["Radar Systems", "Air Traffic Control", "Telecommunications", "Aviation Security"],
+      achievements: [
+        "Gained hands-on familiarization with national aviation infrastructure."
+      ]
     }
   ],
-
-  service: [
+  leadership: [
+    {
+      title: "Founder & Vice Team Lead",
+      organization: "AAUB Rover 71",
+      location: "Lalmonirhat, Bangladesh",
+      period: "OCT 2023 - SEP 2025",
+      type: "Club Activity",
+      supervisor: "Assistant Professor Dr. S. M. Sadakatul Bari",
+      description: "Led end-to-end administrative, technical, financial, and sponsorship operations across multiple workstreams and cross-functional teams, representing AAUB and Bangladesh in internationally benchmarked events.",
+      responsibilities: [
+        "Planned, designed, and delivered two versions of 'AAUB Rover 71'",
+        "Converted conceptual designs into operational systems through field-level testing",
+        "Coordinated project outcomes through structured presentations",
+        "Managed global collaboration and technology awareness initiatives",
+        "Supervised cross-functional teams for internationally benchmarked rover competitions"
+      ],
+      skills: ["System Modeling", "Prototyping", "Project Management", "Technical Reporting", "Testing"],
+      achievements: [
+        "Secured global ranking of 8th at the Qualification Round of Anatolian Rover Challenge 2025",
+        "Secured global ranking of 11th at the Final Round of Anatolian Rover Challenge 2025",
+        "Authored 4 distinct Conference Papers at international flagship platforms"
+      ]
+    },
     {
       title: "Vice President (Avionics)",
       organization: "AAUB AI & Robotics Club",
@@ -183,7 +199,7 @@ export const experiences = {
 
 export const experienceSummary = [
   { number: "4+", label: "Years Research Experience" },
-  { number: "2+", label: "Years Teaching & Workshop Leadership" },
+  { number: "2+", label: "Years Leadership & Training" },
   { number: "60+", label: "Students Mentored & Enrolled" },
   { number: "6+", label: "Leadership Roles Held" }
 ];
