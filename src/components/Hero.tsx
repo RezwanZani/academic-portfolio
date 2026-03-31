@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { Mail, MapPin, Download } from 'lucide-react';
 import { Button } from './ui/button';
+import { Mail, MapPin, Download, Linkedin, BookOpen, GraduationCap, Link as LinkIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import personalInfo from '../data/personal_info';
 
@@ -10,23 +10,23 @@ export function Hero() {
     <section id="hero" className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
+          <motion.div
             className="order-2 lg:order-1"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.h1 
+            <motion.h1
               className="mb-6 text-4xl font-bold leading-tight text-primary"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              
-                {personalInfo.name}
-              
+
+              {personalInfo.name}
+
             </motion.h1>
-            <motion.h2 
+            <motion.h2
               className="mb-6 text-xl text-gray-600"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -34,7 +34,7 @@ export function Hero() {
             >
               {personalInfo.title}
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="mb-8 text-gray-700 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -42,21 +42,49 @@ export function Hero() {
             >
               {personalInfo.description}
             </motion.p>
-            
-            <motion.div 
+
+            <motion.div
+              className="flex gap-4 mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+            >
+              {personalInfo.linkedin && (
+                <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary hover:scale-110 hover:bg-green-100 rounded-full p-2 transition-colors" title="LinkedIn">
+                  <Linkedin size={20} />
+                </a>
+              )}
+              {personalInfo.researchGate && (
+                <a href={personalInfo.researchGate} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary hover:scale-110 hover:bg-green-100 rounded-full p-2 transition-colors" title="ResearchGate">
+                  <BookOpen size={20} />
+                </a>
+              )}
+              {personalInfo.googleScholar && (
+                <a href={personalInfo.googleScholar} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary hover:scale-110 hover:bg-green-100 rounded-full p-2 transition-colors" title="Google Scholar">
+                  <GraduationCap size={20} />
+                </a>
+              )}
+              {personalInfo.orcid && (
+                <a href={personalInfo.orcid} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary hover:scale-110 hover:bg-green-100 rounded-full p-2 transition-colors" title="ORCID">
+                  <LinkIcon size={20} />
+                </a>
+              )}
+            </motion.div>
+
+            <motion.div
               className="flex flex-col sm:flex-row gap-4 mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
             >
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-2 text-gray-600"
                 whileHover={{ scale: 1.05 }}
               >
                 <MapPin size={16} />
                 <span>{personalInfo.location}</span>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-2 text-gray-600"
                 whileHover={{ scale: 1.05 }}
               >
@@ -65,7 +93,7 @@ export function Hero() {
               </motion.div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -96,14 +124,14 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="order-1 lg:order-2 flex justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             <div className="relative">
-              <motion.div 
+              <motion.div
                 className="w-80 h-80 rounded-full overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100 p-2"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
@@ -114,7 +142,7 @@ export function Hero() {
                   className="w-full h-full object-cover rounded-full"
                 />
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="absolute -bottom-4 -right-4 bg-green-600 text-white rounded-full p-3"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
