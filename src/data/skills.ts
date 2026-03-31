@@ -1,0 +1,50 @@
+export const skills = {
+  languages: ["Python", "C", "C++"],
+  platforms: [
+    "Arduino", 
+    "Visual Studio Code", 
+    "Jupyter Notebook"
+  ],
+  software: [
+    "MATLAB", 
+    "Simulink", 
+    "TensorFlow", 
+    "PyTorch", 
+    "Altium", 
+    "Proteus", 
+    "Cadence Virtuoso"
+  ],
+  tools: [
+    "Google Workspace", 
+    "Microsoft Office Power BI", 
+    "Latex", 
+    "Notion", 
+    "Trello"
+  ],
+  technicalExpertise: [
+    "Data Analysis",
+    "Embedded Systems Fundamentals",
+    "Simulation-based Problem Solving",
+    "System Modeling",
+    "Prototyping",
+    "Testing",
+    "Iterative Development",
+    "Algorithm Development",
+    "Performance Analysis"
+  ],
+  softSkills: [
+    "Project Planning & Management", 
+    "Competitive Analysis", 
+    "Leadership", 
+    "Teamwork", 
+    "Public Speaking"
+  ],
+  researchAndDomainKnowledge: [
+    "Wireless communication systems",
+    "UAV-assisted networks",
+    "Deep learning-based signal classification",
+    "Privacy-preserving modulation recognition",
+    "Distributed learning",
+    "UAV and IoT environments"
+  ]
+};
