@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { skills } from '../data/skills';
+import { usePortfolio } from '../contexts/PortfolioContext';
 import { Code2, Monitor, Cpu, Wrench, Microscope, Users, BookOpen, CheckCircle2 } from 'lucide-react';
 
 const categoryConfig = {
@@ -42,6 +42,7 @@ const categoryConfig = {
 };
 
 export function Skills() {
+  const { data: { skills } } = usePortfolio();
   const orderedKeys: (keyof typeof categoryConfig)[] = [
     'researchAndDomainKnowledge',
     'technicalExpertise',

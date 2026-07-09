@@ -5,10 +5,11 @@ import { Button } from './ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { ExternalLink, Download, Calendar, Users } from 'lucide-react';
 import { motion } from 'motion/react';
-import { publications } from '../data/publications_data';
-import personalInfo from '../data/personal_info';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Publications() {
+  const { data: { publications, personalInfo } } = usePortfolio();
+  const pubsList = publications.publications || publications;
 
   const [selectedPublication, setSelectedPublication] = useState<any>(null);
 
@@ -89,33 +90,33 @@ export function Publications() {
           </p>
         </div>
 
-        <Tabs defaultValue={publications["conference"].length > 0 ? "conference" : "journal" } className="w-full">
+        <Tabs defaultValue={pubsList["conference"].length > 0 ? "conference" : "journal" } className="w-full">
           <TabsList className="flex justify-between w-full mb-8">
-            {publications['conference'].length > 0 && (
+            {pubsList['conference'].length > 0 && (
               <TabsTrigger value="conference">
-                Conference Papers ({publications['conference'].length})
+                Conference Papers ({pubsList['conference'].length})
               </TabsTrigger>
             )}
-            {publications['journal'].length > 0 && (
+            {pubsList['journal'].length > 0 && (
               <TabsTrigger value="journal">
-                Journal ({publications['journal'].length})
+                Journal ({pubsList['journal'].length})
               </TabsTrigger>
             )}
-            {publications['thesis'].length > 0 && (
+            {pubsList['thesis'].length > 0 && (
               <TabsTrigger value="thesis">
-                Thesis ({publications['thesis'].length})
+                Thesis ({pubsList['thesis'].length})
               </TabsTrigger>
             )}
-            {publications['working-papers'].length > 0 && (
+            {pubsList['working-papers'].length > 0 && (
               <TabsTrigger value="working-papers">
-                Working Papers ({publications['working-papers'].length})
+                Working Papers ({pubsList['working-papers'].length})
               </TabsTrigger>
             )}
           </TabsList>
 
           <TabsContent value="conference">
             <div className="grid md:grid-cols-2 gap-6">
-              {publications['conference'].map((pub, index) => (
+              {pubsList['conference'].map((pub, index) => (
                 <PublicationCard key={index} pub={pub} type="conference" index={index} />
               ))}
             </div>
@@ -123,7 +124,7 @@ export function Publications() {
 
           <TabsContent value="journal">
             <div className="grid md:grid-cols-2 gap-6">
-              {publications['journal'].map((pub, index) => (
+              {pubsList['journal'].map((pub, index) => (
                 <PublicationCard key={index} pub={pub} type="journal" index={index} />
               ))}
             </div>
@@ -131,7 +132,7 @@ export function Publications() {
 
           <TabsContent value="thesis">
             <div className="grid md:grid-cols-2 gap-6">
-              {publications['thesis'].map((pub, index) => (
+              {pubsList['thesis'].map((pub, index) => (
                 <PublicationCard key={index} pub={pub} type="thesis" index={index} />
               ))}
             </div>
@@ -139,7 +140,7 @@ export function Publications() {
 
           <TabsContent value="working-papers">
             <div className="grid md:grid-cols-2 gap-6">
-              {publications['working-papers'].map((pub, index) => (
+              {pubsList['working-papers'].map((pub, index) => (
                 <PublicationCard key={index} pub={pub} type="working-papers" index={index} />
               ))}
             </div>

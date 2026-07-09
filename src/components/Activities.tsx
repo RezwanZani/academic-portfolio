@@ -3,10 +3,14 @@ import { motion } from 'motion/react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Badge } from './ui/badge';
-import { activitiesData } from '../data/conferences_data';
-import { Calendar, MapPin, Award } from 'lucide-react';
+import * as Icons from 'lucide-react';
+import { Award, Calendar, MapPin } from 'lucide-react';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Activities() {
+  const { data: { conferences } } = usePortfolio();
+  const activitiesData = conferences.activitiesData || conferences;
+
   return (
     <section id="activities" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-green-50/40">
       <div className="max-w-7xl mx-auto">
@@ -37,7 +41,7 @@ export function Activities() {
           <TabsContent value="competitions">
             <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
               {activitiesData.competitions.map((item, index) => {
-                const Icon = item.icon;
+                const Icon = (Icons as any)[item.icon] || Icons.Circle;
                 return (
                   <motion.div
                     key={index}
@@ -53,7 +57,7 @@ export function Activities() {
                             <Icon size={26} strokeWidth={1.5} />
                           </div>
                           <Badge className="bg-green-100 text-green-800 hover:bg-green-200 border-none font-semibold text-sm px-3 py-1 flex items-center gap-1.5 shadow-none mt-1">
-                            <Award size={14} />
+                            <Icons.Award size={14} />
                             {item.role}
                           </Badge>
                         </div>
@@ -61,7 +65,7 @@ export function Activities() {
                           {item.title}
                         </CardTitle>
                         <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
-                          <Calendar size={16} />
+                          <Icons.Calendar size={16} />
                           <span>{item.year}</span>
                         </div>
                       </CardHeader>
@@ -80,7 +84,7 @@ export function Activities() {
           <TabsContent value="conferences">
             <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
               {activitiesData.conferences.map((item, index) => {
-                const Icon = item.icon;
+                const Icon = (Icons as any)[item.icon] || Icons.Circle;
                 return (
                   <motion.div
                     key={index}
@@ -110,7 +114,7 @@ export function Activities() {
                           </div>
                           {item.location && (
                             <div className="flex items-center gap-2">
-                              <MapPin size={16} />
+                              <Icons.MapPin size={16} />
                               <span>{item.location}</span>
                             </div>
                           )}

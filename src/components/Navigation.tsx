@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import personalInfo from '../data/personal_info';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const { data: { personalInfo } } = usePortfolio();
 
   const menuItems = [
     { id: 'hero', label: 'Home' },

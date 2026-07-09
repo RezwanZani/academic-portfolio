@@ -3,10 +3,13 @@ import { motion } from 'motion/react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Badge } from './ui/badge';
-import { projectsAndFundings } from '../data/projects_fundings';
 import { Calendar, User, Landmark } from 'lucide-react';
+import * as Icons from 'lucide-react';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function ProjectsFundings() {
+  const { data: { projects } } = usePortfolio();
+  const projectsAndFundings = projects.projectsAndFundings || projects;
   return (
     <section id="projects-fundings" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-green-50/40">
       <div className="max-w-7xl mx-auto">
@@ -37,7 +40,7 @@ export function ProjectsFundings() {
           <TabsContent value="course-projects">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projectsAndFundings.courseProjects.map((project, index) => {
-                const Icon = project.icon;
+                const Icon = (Icons as any)[project.icon] || Icons.Circle;
                 return (
                   <motion.div
                     key={index}
@@ -75,7 +78,7 @@ export function ProjectsFundings() {
           <TabsContent value="research-grants">
             <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
               {projectsAndFundings.researchGrants.map((grant, index) => {
-                const Icon = grant.icon;
+                const Icon = (Icons as any)[grant.icon] || Icons.Circle;
                 return (
                   <motion.div
                     key={index}

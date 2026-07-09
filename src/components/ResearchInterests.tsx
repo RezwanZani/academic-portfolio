@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Card, CardContent } from './ui/card';
-import { researchInterests } from '../data/researchInterests';
+import * as Icons from 'lucide-react';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function ResearchInterests() {
+  const { data: { researchInterests } } = usePortfolio();
+  const interestsList = researchInterests.researchInterests || researchInterests;
   return (
     <section id="research-interests" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
       <div className="max-w-7xl mx-auto">
@@ -22,8 +25,8 @@ export function ResearchInterests() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {researchInterests.map((interest, index) => {
-            const Icon = interest.icon;
+          {interestsList.map((interest, index) => {
+            const Icon = (Icons as any)[interest.icon] || Icons.Circle;
             return (
               <motion.div
                 key={index}

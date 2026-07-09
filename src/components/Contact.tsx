@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Mail, MapPin, Phone, Calendar, ExternalLink, Send } from 'lucide-react';
-import personalInfo from '../data/personal_info';
+import { Mail, MapPin, Phone, CalendarClock, ExternalLink, Calendar } from 'lucide-react';
 import { ContactForm } from './ContactForm';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Contact() {
+  const { data: { personalInfo } } = usePortfolio();
   const [formData, setFormData] = useState({
     name: '',
     email: '',

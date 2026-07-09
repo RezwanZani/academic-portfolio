@@ -4,10 +4,13 @@ import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { CheckCircle, Clock, Target, BookOpen, Users, Award } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { motion } from 'motion/react';
-import { milestones, currentResearch, awardsAndAchievements, researchEnvironment } from '../data/journey_data';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Journey() {
+  const { data: { journey } } = usePortfolio();
+  const { milestones, currentResearch, awardsAndAchievements, researchEnvironment } = journey;
   const [progressValue, setProgressValue] = useState(0);
 
 
@@ -200,7 +203,10 @@ export function Journey() {
                         transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
                         whileHover={{ rotate: 360 }}
                       >
-                        <achievement.icon className="text-green-600" size={24} />
+                        {(() => {
+                           const AchievementIcon = (Icons as any)[achievement.icon] || Icons.Circle;
+                           return <AchievementIcon className="text-green-600" size={24} />;
+                        })()}
                       </motion.div>
                     </div>
                     <h4 className="mb-1 text-[15px] font-bold text-gray-900">{achievement.title}</h4>

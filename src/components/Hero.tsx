@@ -1,11 +1,13 @@
 import React from 'react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { Button } from './ui/button';
-import { Mail, MapPin, Download, Linkedin, BookOpen, GraduationCap, Link as LinkIcon } from 'lucide-react';
 import { motion } from 'motion/react';
-import personalInfo from '../data/personal_info';
+import { Linkedin, Mail, GraduationCap, MapPin, BookOpen, Link as LinkIcon, Download, FileText } from 'lucide-react';
+import { Button } from './ui/button';
+import { usePortfolio } from '../contexts/PortfolioContext';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function Hero() {
+  const { data: { personalInfo } } = usePortfolio();
+
   return (
     <section id="hero" className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">

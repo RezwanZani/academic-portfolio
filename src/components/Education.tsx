@@ -1,11 +1,13 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
-import { Calendar, MapPin, Award } from 'lucide-react';
 import { motion } from 'motion/react';
-import { educationData, educationSummary } from '../data/education_data';
+import { GraduationCap, Calendar, MapPin, Award, BookOpen } from 'lucide-react';
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from './ui/card';
+import { Badge } from './ui/badge';
+import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Education() {
+  const { data: { education } } = usePortfolio();
+  const { educationData, educationSummary } = education;
 
   return (
     <section id="education" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
