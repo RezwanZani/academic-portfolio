@@ -1,60 +1,46 @@
-# Customization Guidelines
+# Customization & Management Guidelines
 
-This guide is designed to help you (the client or site owner) update your Academic Portfolio website. The project has been built in a modular way so that **updating your data does not require advanced coding skills**.
+This guide is designed to help you (the client or site owner) update and manage your Academic Portfolio website. The project is equipped with a secure, graphical Admin Dashboard, meaning **updating your content does not require any coding skills**.
 
 ---
 
-## 1. How to Update Your Content (Data)
+## 1. Managing Your Content via the Dashboard
 
-Almost all the text content shown on the website (your name, bio, experience, publications, etc.) is stored in dedicated "data" files. You do not need to touch the complex UI code to change your information.
+Unlike static templates, this portfolio is powered by a live database (Firebase Firestore). You can manage all text, experiences, publications, and skills directly from a secure web interface.
 
-All data files are located in the `src/data/` folder. They are simple TypeScript (`.ts`) files containing structured information. 
+### Initial Setup (One-Time)
+Before you can manage your site, you must claim ownership:
+1. Navigate to `/admin-setup` (e.g., `http://localhost:5173/admin-setup`).
+2. Enter your email and a secure password.
+3. Click **Complete Setup**. 
+*(Note: As a security measure, once this is done, the setup page locks itself permanently. No one else can run this setup again.)*
 
-### `src/data/personal_info.ts`
-This file controls the main header, Hero section, and Contact information.
-- **Fields to change**:
-  - `name`, `title`, `description`: Shown at the top of the site.
-  - `email`, `phone`, `officeLocation`, `officeHours`: Shown in the Contact section.
-  - `linkedin`, `researchGate`, `googleScholar`: Links to your social profiles.
-  - `photo`: The path to your profile picture (place your image in the `public/photo/` folder and link it here, e.g., `"/photo/my_picture.jpg"`).
-  - `cv`: The path to your downloadable CV PDF.
+### Accessing the Dashboard
+1. Navigate to `/login` (e.g., `http://localhost:5173/login`).
+2. Enter the credentials you established during setup.
+3. You will be redirected to the secure **Admin Dashboard**.
 
-### `src/data/experience_data.ts`
-This file holds your employment and research experience.
-- It contains a list of objects. To add a new experience, simply copy an existing block (from `{` to `},`) and change the details:
-  - `id`: Keep it unique (e.g., `"exp-1"`).
-  - `title`, `company`, `location`, `period`.
-  - `description`: An array of strings. Each string will become a bullet point on the website.
-
-### `src/data/education_data.ts`
-Similar to experience, this holds your educational background.
-- Change `degree`, `institution`, `period`, `location`, and optionally add an `achievements` array for bullet points under the degree.
-
-### `src/data/publications_data.ts`
-This file handles your publications. It is categorized to help you manage different types of papers.
-- Change fields like `title`, `authors`, `venue` (the journal or conference name), `year`, and `doi`.
-- The `link` field can direct users to the actual paper.
-
-### `src/data/conferences_data.ts` & `src/data/journey_data.ts`
-These files work exactly the same way. Update the text strings, dates, and locations. 
-
-> **Tip:** Make sure to preserve all quotation marks (`" "`), commas (`,`), and brackets (`{ }`, `[ ]`). If the website breaks after an edit, you likely missed a comma at the end of a line!
+### Updating Data
+Inside the dashboard, you will find a sidebar with different sections corresponding to your public portfolio:
+- **Personal Info**: Controls the main header, Hero section text, and Contact information links. You can also paste direct image URLs here for your profile picture and CV download.
+- **Experience, Education, Projects**: Dynamic lists where you can click "Add Item" to add new timeline entries. You can also edit or delete existing entries.
+- **Skills & Research Interests**: You can use the built-in dropdown menu to select from curated, professional icons (like engineering or aerospace symbols) to visually represent your skills.
+- **Saving**: Whenever you click "Save" on any form, the data is instantly synced to your live database. If you navigate to your public portfolio, you will see the changes instantly.
 
 ---
 
 ## 2. How to Change the Design & Colors
 
-The website uses **Tailwind CSS** for styling. The core color themes are defined globally, making it easy to swap out the main brand colors.
+The website uses **Tailwind CSS** for styling. The core color themes are defined globally, making it easy to swap out the main brand colors if you prefer something other than the default emerald/teal.
 
 ### Changing the Color Palette
-1. Open the `src/index.css` file.
+1. Open the `src/index.css` file in a code editor.
 2. Under the `@layer theme` section, you will see a list of CSS variables defining colors:
    ```css
    --color-emerald-600: oklch(.596 .145 163.225);
    ```
-   The site heavily utilizes standard Tailwind colors (like `emerald`, `green`, `teal`, `gray`). 
-3. If you want to change the primary accent color from the default to another color, you can find and replace the Tailwind color classes in the component files. For example, replacing `text-emerald-600` with `text-blue-600` across your components.
-4. **Dark/Light Mode**: The site relies on the `next-themes` setup. The background and foreground colors are typically tied to standard variables like `--background` and `--foreground`. 
+   The site heavily utilizes standard Tailwind colors. 
+3. If you want to change the primary accent color from the default, you can find and replace the Tailwind color classes in the component files (e.g., replacing `text-primary` with `text-blue-600`).
 
 ### Changing Fonts
 The fonts are also defined in `src/index.css`:
@@ -67,12 +53,12 @@ To change fonts, you can import a Google Font in your `index.html` file (inside 
 
 ## 3. How to Change the Layout
 
-Layout changes require a little more familiarity with React and Tailwind CSS. The user interface is composed of modular components located in the `src/components/` folder.
+Layout changes require a little more familiarity with React and Tailwind CSS. The public user interface is composed of modular components located in the `src/components/` folder.
 
 ### Rearranging Sections on the Page
 If you want to move the "Education" section above the "Experience" section:
-1. Open `src/App.tsx` (or `src/main.tsx` if routing is done there).
-2. You will see a list of components being rendered:
+1. Open `src/pages/Portfolio.tsx`.
+2. You will see a list of components being rendered inside the `<main>` tag:
    ```tsx
    <Hero />
    <Experience />
@@ -88,17 +74,15 @@ If you want to change how a specific section looks (e.g., making the Hero image 
 3. You can modify these classes to change the layout. For example, changing `flex-col` to `flex-row`, or adjusting spacing like `mt-4` (margin-top) or `p-6` (padding). 
 4. Refer to the [Tailwind CSS Documentation](https://tailwindcss.com/docs) for a full list of available utility classes.
 
-### Adding a New Section
-1. Create a new file in `src/components/`, for example, `Awards.tsx` by copying an existing component's structure.
-2. Create a data file for it in `src/data/awards_data.ts`.
-3. Import your data into `Awards.tsx` and build the layout.
-4. Finally, import `<Awards />` into `src/App.tsx` and place it where you want it to appear on the page.
-
 ---
 
 ## 4. Deploying Your Changes
 
-Once you are satisfied with your local changes (testing via `npm run dev`):
-1. Run `npm run build` in your terminal.
-2. This will generate a `dist` folder.
-3. Upload the contents of the `dist` folder to your web host (e.g., cPanel, GitHub Pages, Vercel, Netlify) to make your updates live.
+Once you are satisfied with your local setup:
+1. Run `npm run build` in your terminal to generate the optimized frontend code.
+2. This will generate a `build` folder.
+3. You can deploy this `build` folder to any static hosting provider. We highly recommend **Firebase Hosting** since your backend is already running on Firebase:
+   ```bash
+   firebase init hosting
+   firebase deploy --only hosting
+   ```
