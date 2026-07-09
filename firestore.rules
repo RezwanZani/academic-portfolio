@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if the logged-in user is an admin
+    function isAdmin() {
+      return request.auth != null && 
+        exists(/databases/$(database)/documents/config/admin) &&
+        get(/databases/$(database)/documents/config/admin).data.uid == request.auth.uid;
+    }
+
+    match /config/admin {
+      allow read: if true;
+      // Absolutely lock down creation to only the very first person, and bind it to their UID
+      allow create: if request.auth != null && 
+                    !exists(/databases/$(database)/documents/config/admin) &&
+                    request.resource.data.uid == request.auth.uid;
+      // Never allow changes once created
+      allow update, delete: if false; 
+    }
+
+    match /projects/{project} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /{collectionName}/{document=**} {
+      allow read: if collectionName in ['personalInfo', 'education', 'skills', 'researchInterests', 'experience', 'conferences', 'journey', 'projects', 'publications'];
+      allow write: if request.auth != null;
+    }
+  }
+}
