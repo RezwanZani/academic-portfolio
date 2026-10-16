@@ -22,6 +22,14 @@ export function Publications() {
     }
   };
 
+  const formatUrl = (url?: string) => {
+    if (!url) return '';
+    const trimmed = url.trim();
+    return trimmed.startsWith('http://') || trimmed.startsWith('https://')
+      ? trimmed
+      : `https://${trimmed}`;
+  };
+
   const PublicationCard = ({ pub, type, index = 0 }: { pub: any, type: string, index?: number }) => (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -32,7 +40,23 @@ export function Publications() {
     >
       <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full" onClick={() => setSelectedPublication(pub)}>
       <CardHeader>
-        <CardTitle className="leading-tight text-lg text-primary font-medium mb-2">{pub.title}</CardTitle>
+        <CardTitle className="leading-tight text-lg text-primary font-medium mb-2">
+          {pub.link && pub.link.trim() ? (
+            <a
+              href={formatUrl(pub.link)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="hover:underline hover:text-primary/80 inline-flex items-center gap-1.5 transition-colors group/title"
+              title="Open publication link"
+            >
+              <span>{pub.title}</span>
+              <ExternalLink size={16} className="inline-block flex-shrink-0 opacity-70 group-hover/title:opacity-100 transition-opacity" />
+            </a>
+          ) : (
+            <span>{pub.title}</span>
+          )}
+        </CardTitle>
         <div className="flex flex-wrap items-center gap-2 mb-2">
           <Badge className={getStatusColor(pub.status)}>
             {pub.status}

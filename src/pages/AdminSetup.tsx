@@ -23,9 +23,11 @@ export const AdminSetup: React.FC = () => {
         } else {
           setAdminExists(false);
         }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-        toast.error("Failed to check system status.");
+      } catch (error: any) {
+        // If checking fails (e.g. permission-denied before initial rules are set, or first-time setup),
+        // do not block the user with a connection error. Allow setup form to show.
+        console.warn("Skipping admin check for first time setup:", error);
+        setAdminExists(false);
       } finally {
         setChecking(false);
       }

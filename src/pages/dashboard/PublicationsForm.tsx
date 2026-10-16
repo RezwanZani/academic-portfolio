@@ -50,6 +50,7 @@ export const PublicationsForm: React.FC = () => {
               if (data[arr.name]) {
                   data[arr.name] = data[arr.name].map((item: any) => ({
                       ...item,
+                      link: item.link || '',
                       authorsStr: item.authors ? item.authors.join('\n') : '',
                       keywordsStr: item.keywords ? item.keywords.join('\n') : ''
                   }));
@@ -71,10 +72,11 @@ export const PublicationsForm: React.FC = () => {
     try {
       const payload: any = {};
       arrays.forEach(arr => {
-          payload[arr.name] = data[arr.name].map((item: any) => {
+          payload[arr.name] = (data[arr.name] || []).map((item: any) => {
               const { authorsStr, keywordsStr, ...rest } = item;
               return {
                   ...rest,
+                  link: item.link ? item.link.trim() : '',
                   authors: authorsStr ? authorsStr.split('\n').map((s: string) => s.trim()).filter(Boolean) : [],
                   keywords: keywordsStr ? keywordsStr.split('\n').map((s: string) => s.trim()).filter(Boolean) : []
               };
@@ -118,7 +120,7 @@ export const PublicationsForm: React.FC = () => {
                     <h3 className="text-xl font-medium text-white">{arr.label}</h3>
                     <button
                       type="button"
-                      onClick={() => append({ title: '', authorsStr: '', conference: '', journal: '', year: '', location: '', status: '', type: '', abstract: '', keywordsStr: '' })}
+                      onClick={() => append({ title: '', link: '', authorsStr: '', conference: '', journal: '', year: '', location: '', status: '', type: '', abstract: '', keywordsStr: '' })}
                       className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm transition-colors"
                     >
                       <Plus className="w-4 h-4" /> Add Item
@@ -135,6 +137,14 @@ export const PublicationsForm: React.FC = () => {
                           <div className="md:col-span-2">
                             <label className="block text-xs text-gray-400 mb-1">Title</label>
                             <input {...register(`${arr.name}.${index}.title` as const)} className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" />
+                          </div>
+                          <div className="md:col-span-2">
+                            <label className="block text-xs text-gray-400 mb-1">Paper Link (URL - optional)</label>
+                            <input 
+                              {...register(`${arr.name}.${index}.link` as const)} 
+                              placeholder="https://example.com/paper or leave blank" 
+                              className="w-full bg-black/50 border border-white/10 rounded p-2 text-white text-sm" 
+                            />
                           </div>
                           <div>
                             <label className="block text-xs text-gray-400 mb-1">Year</label>

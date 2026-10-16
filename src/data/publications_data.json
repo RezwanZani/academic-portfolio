@@ -3,6 +3,7 @@
     "conference": [
       {
         "title": "Electro-Mechanical Design Analysis and Implementation of an Indigenous Mars Rover",
+        "link": "",
         "authors": ["M. E. Rahman", "A. H. Olee", "B. Ahmmed", "T. Ninad", "M. S. Rahman", "M. A. Hossain"],
         "conference": "2024 IEEE Region 10 Symposium (TENSYMP)",
         "year": 2024,
@@ -14,6 +15,7 @@
       },
       {
         "title": "Rover-71: An Indigenous Multi-Purpose Rover Featuring Autonomous Navigation and Control",
+        "link": "",
         "authors": ["M. E. Rahman", "T. Ninad", "M. T. Islam", "T. R. Turjo", "S. Akter", "M. S. Islam", "M. Azam", "S. M. S. Bari"],
         "conference": "2025 7th International Conference on Electrical, Control and Instrumentation Engineering",
         "year": 2025,
@@ -25,6 +27,7 @@
       },
       {
         "title": "Automatic Modulation Recognition in OTFS Systems Using Optimized SE-CNN Architecture",
+        "link": "",
         "authors": ["M. E. Rahman", "A. H. Olee", "T. Ninad", "M. S. Hossain", "M. A. Jamil"],
         "conference": "2025 IEEE 2nd International Conference on Computing, Applications and Systems (COMPAS)",
         "year": 2025,
@@ -36,6 +39,7 @@
       },
       {
         "title": "LIFE-MAP: an Indigenous Biosignature Detection Protocol Using Multi-Biomolecule Based Analysis",
+        "link": "",
         "authors": ["M. E. Rahman", "T. Ninad", "M. A. I. Aion", "M. R. Haque", "T. Ahmed", "M. S. Rahman"],
         "conference": "2025 IEEE Region 10 Conference (TENCON)",
         "year": 2025,
@@ -47,6 +51,7 @@
       },
       {
         "title": "Design and Development of an Indigenous Modular 5-DOF Robotic Arm for Multidisciplinary Tasks",
+        "link": "",
         "authors": ["A. F. Anon", "M. S. Prodhan", "H. P. Himel", "M. T. Islam", "M. R. Hasan", "K. A. I. Jisan", "T. Ninad", "M. E. Rahman", "M. A. Hossain"],
         "conference": "2025 IEEE Region 10 Conference (TENCON)",
         "year": 2025,
@@ -58,6 +63,7 @@
       },
       {
         "title": "Transfer Learning for Deep Feature Extraction in Automated Rock Classification",
+        "link": "",
         "authors": ["T. Ninad", "M. E. Rahman", "M. M. Hossain", "M. U. Tazbid", "A. Gifari", "S. M. S. Bari"],
         "conference": "International Conference on Computer and Information Technology (ICCIT) 2025",
         "year": 2025,
@@ -72,6 +78,7 @@
     "thesis": [
       {
         "title": "Privacy Preserving Automatic Modulation Recognition for UAV Networks using Distributed Learning",
+        "link": "",
         "authors": ["Tyseer Ninad", "M. E. Rahman", "M. A. Jamil"],
         "year": 2026,
         "status": "Completed",
