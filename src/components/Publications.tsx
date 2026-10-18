@@ -9,7 +9,13 @@ import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Publications() {
   const { data: { publications, personalInfo } } = usePortfolio();
-  const pubsList = publications.publications || publications;
+  const rawList = publications?.publications || publications || {};
+  const pubsList: Record<string, any[]> = {
+    conference: Array.isArray(rawList.conference) ? rawList.conference : [],
+    journal: Array.isArray(rawList.journal) ? rawList.journal : [],
+    thesis: Array.isArray(rawList.thesis) ? rawList.thesis : [],
+    'working-papers': Array.isArray(rawList['working-papers']) ? rawList['working-papers'] : [],
+  };
 
   const [selectedPublication, setSelectedPublication] = useState<any>(null);
 
@@ -30,7 +36,11 @@ export function Publications() {
       : `https://${trimmed}`;
   };
 
-  const PublicationCard = ({ pub, type, index = 0 }: { pub: any, type: string, index?: number }) => (
+  const PublicationCard = ({ pub, type, index = 0 }: { pub: any, type: string, index?: number }) => {
+    const authors = Array.isArray(pub.authors) ? pub.authors.join(', ') : (pub.authors || '');
+    const keywords = Array.isArray(pub.keywords) ? pub.keywords : [];
+
+    return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -70,15 +80,15 @@ export function Publications() {
         </div>
         <div className="flex items-center gap-2 text-gray-600 mb-2">
           <Users size={16} />
-          <span className="text-sm">{pub.authors.join(', ')}</span>
+          <span className="text-sm">{authors}</span>
         </div>
         <div className="flex items-center gap-2 text-gray-600">
           <Calendar size={16} />
           <span className="text-sm">
-            {type === 'journal' ? `${pub.journal}, ${pub.year}` : 
-             type === 'conference' ? `${pub.conference}, ${pub.year}` :
-             type === 'thesis' ? `${pub.year} - ${pub.journal || 'Thesis'}` :
-             `${pub.year} - ${pub.journal || 'Manuscript'}`}
+            {type === 'journal' ? `${pub.journal || ''}, ${pub.year || ''}` : 
+             type === 'conference' ? `${pub.conference || ''}, ${pub.year || ''}` :
+             type === 'thesis' ? `${pub.year || ''} - ${pub.journal || 'Thesis'}` :
+             `${pub.year || ''} - ${pub.journal || 'Manuscript'}`}
           </span>
         </div>
       </CardHeader>
@@ -87,21 +97,22 @@ export function Publications() {
           {pub.abstract}
         </p>
         <div className="flex flex-wrap gap-1 mt-3">
-          {pub.keywords.slice(0, 3).map((keyword: string, index: number) => (
+          {keywords.slice(0, 3).map((keyword: string, index: number) => (
             <Badge key={index} variant="outline" className="text-xs">
               {keyword}
             </Badge>
           ))}
-          {pub.keywords.length > 3 && (
+          {keywords.length > 3 && (
             <Badge variant="outline" className="text-xs">
-              +{pub.keywords.length - 3} more
+              +{keywords.length - 3} more
             </Badge>
           )}
         </div>
       </CardContent>
     </Card>
     </motion.div>
-  );
+    );
+  };
 
   return (
     <section id="publications" className="py-16 px-4 sm:px-6 lg:px-8">

@@ -73,9 +73,9 @@ export function Skills() {
         {/* Changed to 2 columns and removed items-start so cards stretch to equal height */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {orderedKeys.map((key, index) => {
-            const items = skills[key];
+            const items = skills?.[key];
             const config = categoryConfig[key];
-            if (!items || !config) return null;
+            if (!items || !Array.isArray(items) || items.length === 0 || !config) return null;
             const Icon = config.icon;
 
             return (

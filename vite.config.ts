@@ -56,6 +56,33 @@
     build: {
       target: 'esnext',
       outDir: 'build',
+      chunkSizeWarningLimit: 600,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('firebase')) {
+                if (id.includes('firestore')) {
+                  return 'vendor-firebase-firestore';
+                }
+                return 'vendor-firebase';
+              }
+              if (id.includes('tsparticles') || id.includes('react-tsparticles')) {
+                return 'vendor-tsparticles';
+              }
+              if (id.includes('motion')) {
+                return 'vendor-motion';
+              }
+              if (id.includes('@radix-ui') || id.includes('cmdk') || id.includes('vaul')) {
+                return 'vendor-radix';
+              }
+              if (id.includes('react-dom') || id.includes('react-router-dom') || id.includes('/react/')) {
+                return 'vendor-react';
+              }
+            }
+          },
+        },
+      },
     },
     server: {
       port: 3000,

@@ -4,12 +4,12 @@ import { Card, CardHeader, CardContent, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Badge } from './ui/badge';
 import { Calendar, User, Landmark } from 'lucide-react';
-import * as Icons from 'lucide-react';
+import { DynamicIcon } from './ui/DynamicIcon';
 import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function ProjectsFundings() {
   const { data: { projects } } = usePortfolio();
-  const projectsAndFundings = projects.projectsAndFundings || projects;
+  const projectsAndFundings = projects?.projectsAndFundings || projects || {};
   return (
     <section id="projects-fundings" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-green-50/40">
       <div className="max-w-7xl mx-auto">
@@ -39,8 +39,7 @@ export function ProjectsFundings() {
 
           <TabsContent value="course-projects">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projectsAndFundings.courseProjects.map((project, index) => {
-                const Icon = (Icons as any)[project.icon] || Icons.Circle;
+              {(projectsAndFundings.courseProjects || []).map((project: any, index: number) => {
                 return (
                   <motion.div
                     key={index}
@@ -53,7 +52,7 @@ export function ProjectsFundings() {
                     <Card className="h-full flex flex-col group border-green-100/80 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                       <CardHeader className="pb-4">
                         <div className="p-3 bg-green-50 w-fit rounded-xl text-primary mb-5 group-hover:bg-primary group-hover:text-black transition-colors duration-300">
-                          <Icon size={24} />
+                          <DynamicIcon name={project.icon} size={24} />
                         </div>
                         <CardTitle className="text-lg font-bold leading-tight mb-3">
                           {project.title}
@@ -77,8 +76,7 @@ export function ProjectsFundings() {
 
           <TabsContent value="research-grants">
             <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
-              {projectsAndFundings.researchGrants.map((grant, index) => {
-                const Icon = (Icons as any)[grant.icon] || Icons.Circle;
+              {(projectsAndFundings.researchGrants || []).map((grant: any, index: number) => {
                 return (
                   <motion.div
                     key={index}
@@ -91,7 +89,7 @@ export function ProjectsFundings() {
                       <CardHeader className="pb-6">
                         <div className="flex justify-between items-start mb-5">
                           <div className="p-3.5 bg-green-50 rounded-xl text-primary group-hover:bg-primary group-hover:text-black transition-colors duration-300">
-                            <Icon size={26} strokeWidth={1.5} />
+                            <DynamicIcon name={grant.icon} size={26} strokeWidth={1.5} />
                           </div>
                           <Badge className="bg-green-100 text-green-800 hover:bg-green-200 border-none font-semibold text-sm px-3 py-1 flex items-center gap-1.5 shadow-none mt-1">
                             <Landmark size={14} />

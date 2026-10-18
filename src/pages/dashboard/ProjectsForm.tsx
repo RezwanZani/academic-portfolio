@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const ProjectsForm: React.FC = () => {
   const { register, control, handleSubmit, reset, formState: { isSubmitting } } = useForm({
@@ -27,11 +28,12 @@ export const ProjectsForm: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'projects', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+        if (docSnap.exists() && isMounted) {
           const raw = docSnap.data();
           // Data is stored wrapped: { projectsAndFundings: { courseProjects, researchGrants } }
           const unwrapped = raw.projectsAndFundings || raw;
@@ -41,10 +43,11 @@ export const ProjectsForm: React.FC = () => {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
@@ -52,6 +55,7 @@ export const ProjectsForm: React.FC = () => {
       const docRef = doc(db, 'projects', 'data');
       // Re-wrap to match the expected structure
       await setDoc(docRef, { projectsAndFundings: data });
+      invalidatePortfolioCache();
       toast.success('Projects & Fundings saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);

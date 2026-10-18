@@ -56,13 +56,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <>
-      {/* Add the Toaster component somewhere near the top of your app or this section */}
-      <Toaster position="bottom-right" richColors />
-
-      
-        {/* We add the ref={formRef} here so EmailJS can read the inputs */}
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="name" className="block text-sm mb-2">Name *</label>
@@ -132,6 +126,5 @@ export const ContactForm = () => {
             )}
           </Button>
         </form>
-    </>
   );
 };

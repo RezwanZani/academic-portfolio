@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Card, CardContent } from './ui/card';
-import * as Icons from 'lucide-react';
+import { DynamicIcon } from './ui/DynamicIcon';
 import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function ResearchInterests() {
   const { data: { researchInterests } } = usePortfolio();
-  const interestsList = researchInterests.researchInterests || researchInterests;
+  const interestsList = researchInterests?.researchInterests || researchInterests || [];
   return (
     <section id="research-interests" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
       <div className="max-w-7xl mx-auto">
@@ -25,8 +25,7 @@ export function ResearchInterests() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {interestsList.map((interest, index) => {
-            const Icon = (Icons as any)[interest.icon] || Icons.Circle;
+          {(Array.isArray(interestsList) ? interestsList : []).map((interest: any, index: number) => {
             return (
               <motion.div
                 key={index}
@@ -47,7 +46,7 @@ export function ResearchInterests() {
                         transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
                         whileHover={{ rotate: 360 }}
                       >
-                        <Icon className="text-green-600" size={28} />
+                        <DynamicIcon name={interest.icon} className="text-green-600" size={28} />
                       </motion.div>
                     </div>
                     <h3 className="text-[17px] font-bold text-gray-900 mb-3">{interest.title}</h3>

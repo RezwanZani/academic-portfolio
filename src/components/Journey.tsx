@@ -4,13 +4,16 @@ import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { CheckCircle, Clock, Target, BookOpen, Users, Award } from 'lucide-react';
-import * as Icons from 'lucide-react';
+import { DynamicIcon } from './ui/DynamicIcon';
 import { motion } from 'motion/react';
 import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Journey() {
   const { data: { journey } } = usePortfolio();
-  const { milestones, currentResearch, awardsAndAchievements, researchEnvironment } = journey;
+  const milestones = journey?.milestones || [];
+  const currentResearch = journey?.currentResearch || { title: '', advisor: '', committee: [], abstract: '', objectives: [], progress: 0 };
+  const awardsAndAchievements = journey?.awardsAndAchievements || [];
+  const researchEnvironment = journey?.researchEnvironment;
   const [progressValue, setProgressValue] = useState(0);
 
 
@@ -135,7 +138,7 @@ export function Journey() {
                 <div className="mb-6">
                   <h4 className="mb-3">Research Objectives</h4>
                   <ul className="space-y-2">
-                    {currentResearch.objectives.map((objective, index) => (
+                    {(currentResearch.objectives || []).map((objective: string, index: number) => (
                       <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
                         <CheckCircle size={16} className="text-green-600 mt-0.5 flex-shrink-0" />
                         <span>{objective}</span>
@@ -147,7 +150,7 @@ export function Journey() {
                 <div>
                   <h4 className="mb-3">Dissertation Committee</h4>
                   <ul className="space-y-1">
-                    {currentResearch.committee.map((member, index) => (
+                    {(currentResearch.committee || []).map((member: string, index: number) => (
                       <li key={index} className="text-sm text-gray-700">
                         {member}
                       </li>
@@ -203,10 +206,7 @@ export function Journey() {
                         transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
                         whileHover={{ rotate: 360 }}
                       >
-                        {(() => {
-                           const AchievementIcon = (Icons as any)[achievement.icon] || Icons.Circle;
-                           return <AchievementIcon className="text-green-600" size={24} />;
-                        })()}
+                        <DynamicIcon name={achievement.icon} className="text-green-600" size={24} />
                       </motion.div>
                     </div>
                     <h4 className="mb-1 text-[15px] font-bold text-gray-900">{achievement.title}</h4>

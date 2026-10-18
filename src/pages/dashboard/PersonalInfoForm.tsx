@@ -4,17 +4,19 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const PersonalInfoForm: React.FC = () => {
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'personalInfo', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+        if (docSnap.exists() && isMounted) {
           const data = docSnap.data();
           reset({
             ...data,
@@ -28,10 +30,11 @@ export const PersonalInfoForm: React.FC = () => {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
@@ -43,6 +46,7 @@ export const PersonalInfoForm: React.FC = () => {
         socialLinks: { googleScholar, researchGate, linkedin, orcid }
       };
       await setDoc(docRef, payload);
+      invalidatePortfolioCache();
       toast.success('Personal info saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);

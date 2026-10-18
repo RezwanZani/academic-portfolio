@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const ResearchInterestsForm: React.FC = () => {
   const { register, control, handleSubmit, reset, formState: { isSubmitting } } = useForm({
@@ -21,27 +22,30 @@ export const ResearchInterestsForm: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'researchInterests', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          reset({ interests: docSnap.data().researchInterests || docSnap.data().interests });
+        if (docSnap.exists() && isMounted) {
+          reset({ interests: docSnap.data().researchInterests || docSnap.data().interests || [] });
         }
       } catch (error) {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
     try {
       const docRef = doc(db, 'researchInterests', 'data');
-      await setDoc(docRef, { researchInterests: data.interests });
+      await setDoc(docRef, { researchInterests: data.interests || [] });
+      invalidatePortfolioCache();
       toast.success('Research interests saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);

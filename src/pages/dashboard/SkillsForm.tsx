@@ -4,17 +4,19 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const SkillsForm: React.FC = () => {
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'skills', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+        if (docSnap.exists() && isMounted) {
           const data = docSnap.data();
           // Convert array to newline separated strings
           const formatted = { ...(data.skills || data) };
@@ -29,10 +31,11 @@ export const SkillsForm: React.FC = () => {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
@@ -42,11 +45,14 @@ export const SkillsForm: React.FC = () => {
       for (const key in data) {
           if (typeof data[key] === 'string') {
               payload[key] = data[key].split('\n').map((s: string) => s.trim()).filter(Boolean);
+          } else if (Array.isArray(data[key])) {
+              payload[key] = data[key];
           }
       }
 
       const docRef = doc(db, 'skills', 'data');
       await setDoc(docRef, { skills: payload });
+      invalidatePortfolioCache();
       toast.success('Skills saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);
@@ -54,7 +60,7 @@ export const SkillsForm: React.FC = () => {
     }
   };
 
-  if (loading) return <div className="text-white">Loading...</div>;
+  if (loading) return <div className="text-white p-6">Loading skills...</div>;
 
   return (
     <div className="max-w-4xl pb-20">

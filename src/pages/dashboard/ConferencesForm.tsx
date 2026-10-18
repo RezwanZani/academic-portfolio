@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const ConferencesForm: React.FC = () => {
   const { register, control, handleSubmit, reset, formState: { isSubmitting } } = useForm({
@@ -27,11 +28,12 @@ export const ConferencesForm: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'conferences', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+        if (docSnap.exists() && isMounted) {
           const raw = docSnap.data();
           // Data is stored wrapped: { activitiesData: { competitions, conferences } }
           const unwrapped = raw.activitiesData || raw;
@@ -41,10 +43,11 @@ export const ConferencesForm: React.FC = () => {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
@@ -52,6 +55,7 @@ export const ConferencesForm: React.FC = () => {
       const docRef = doc(db, 'conferences', 'data');
       // Re-wrap to match the expected structure
       await setDoc(docRef, { activitiesData: data });
+      invalidatePortfolioCache();
       toast.success('Conferences & Activities saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);

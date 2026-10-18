@@ -32,6 +32,14 @@ const PortfolioContext = createContext<PortfolioContextType | undefined>(undefin
 
 const CACHE_KEY = 'portfolio_data_cache';
 
+export const invalidatePortfolioCache = () => {
+  try {
+    localStorage.removeItem(CACHE_KEY);
+  } catch (e) {
+    console.error("Failed to clear portfolio cache:", e);
+  }
+};
+
 export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Initialize with cached data if available, otherwise fallback to static data
   const [data, setData] = useState(() => {
@@ -60,6 +68,8 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [loading, setLoading] = useState(() => !localStorage.getItem(CACHE_KEY));
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchPortfolioData = async () => {
       try {
         const docNames = [
@@ -68,19 +78,31 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           'journey', 'projects', 'publications'
         ];
 
-        const fetchPromises = docNames.map(name => getDoc(doc(db, name, 'data')));
-        const snapshots = await Promise.all(fetchPromises);
+        // 10-second safety timeout so network hangs never block UI indefinitely
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Network timeout")), 10000)
+        );
+
+        const fetchPromises = docNames.map(name =>
+          Promise.race([getDoc(doc(db, name, 'data')), timeoutPromise]) as Promise<any>
+        );
+
+        const snapshots = await Promise.allSettled(fetchPromises);
+
+        if (!isMounted) return;
 
         const fetchedData: any = {};
+        let hasNewData = false;
         
-        snapshots.forEach((snap, index) => {
-          if (snap.exists()) {
+        snapshots.forEach((res, index) => {
+          if (res.status === 'fulfilled' && res.value && typeof res.value.exists === 'function' && res.value.exists()) {
+            const snap = res.value;
             const snapData = snap.data();
             const docName = docNames[index];
+            hasNewData = true;
             
             // Map document names to our state keys
             if (docName === 'personalInfo') {
-              // Handle photo and cv fallback specifically
               fetchedData.personalInfo = {
                 ...staticPersonalInfo,
                 ...snapData,
@@ -98,24 +120,35 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ chi
           }
         });
 
-        // Merge fetched data over the static default data (or previously cached data)
-        setData(prevData => {
-          const newData = {
-            ...prevData,
-            ...fetchedData
-          };
-          localStorage.setItem(CACHE_KEY, JSON.stringify(newData));
-          return newData;
-        });
+        if (hasNewData && isMounted) {
+          setData(prevData => {
+            const newData = {
+              ...prevData,
+              ...fetchedData
+            };
+            try {
+              localStorage.setItem(CACHE_KEY, JSON.stringify(newData));
+            } catch (e) {
+              console.warn("Could not save to localStorage:", e);
+            }
+            return newData;
+          });
+        }
 
       } catch (error) {
         console.error("Error fetching portfolio data from Firestore:", error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchPortfolioData();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

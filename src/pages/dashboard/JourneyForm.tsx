@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const JourneyForm: React.FC = () => {
   const { register, control, handleSubmit, reset, formState: { isSubmitting } } = useForm({
@@ -34,11 +35,12 @@ export const JourneyForm: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'journey', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+        if (docSnap.exists() && isMounted) {
           const data = docSnap.data();
           if (data.currentResearch) {
               data.currentResearch.committeeStr = data.currentResearch.committee ? data.currentResearch.committee.join('\n') : '';
@@ -50,10 +52,11 @@ export const JourneyForm: React.FC = () => {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
@@ -62,16 +65,19 @@ export const JourneyForm: React.FC = () => {
           ...data,
           currentResearch: {
               ...data.currentResearch,
-              progress: Number(data.currentResearch.progress),
-              committee: data.currentResearch.committeeStr ? data.currentResearch.committeeStr.split('\n').map((s: string) => s.trim()).filter(Boolean) : [],
-              objectives: data.currentResearch.objectivesStr ? data.currentResearch.objectivesStr.split('\n').map((s: string) => s.trim()).filter(Boolean) : [],
+              progress: Number(data.currentResearch?.progress || 0),
+              committee: data.currentResearch?.committeeStr ? data.currentResearch.committeeStr.split('\n').map((s: string) => s.trim()).filter(Boolean) : [],
+              objectives: data.currentResearch?.objectivesStr ? data.currentResearch.objectivesStr.split('\n').map((s: string) => s.trim()).filter(Boolean) : [],
           }
       };
-      delete payload.currentResearch.committeeStr;
-      delete payload.currentResearch.objectivesStr;
+      if (payload.currentResearch) {
+        delete payload.currentResearch.committeeStr;
+        delete payload.currentResearch.objectivesStr;
+      }
 
       const docRef = doc(db, 'journey', 'data');
       await setDoc(docRef, payload);
+      invalidatePortfolioCache();
       toast.success('Journey saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);

@@ -4,6 +4,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const PublicationsForm: React.FC = () => {
   const { register, control, handleSubmit, reset, formState: { isSubmitting } } = useForm({
@@ -38,16 +39,17 @@ export const PublicationsForm: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'publications', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+        if (docSnap.exists() && isMounted) {
           const rawData = docSnap.data();
           const data = rawData.publications || rawData;
           // convert arrays to strings for authors and keywords
           arrays.forEach(arr => {
-              if (data[arr.name]) {
+              if (data[arr.name] && Array.isArray(data[arr.name])) {
                   data[arr.name] = data[arr.name].map((item: any) => ({
                       ...item,
                       link: item.link || '',
@@ -62,10 +64,11 @@ export const PublicationsForm: React.FC = () => {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
@@ -85,6 +88,7 @@ export const PublicationsForm: React.FC = () => {
 
       const docRef = doc(db, 'publications', 'data');
       await setDoc(docRef, { publications: payload });
+      invalidatePortfolioCache();
       toast.success('Publications saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);

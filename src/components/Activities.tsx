@@ -3,8 +3,8 @@ import { motion } from 'motion/react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Badge } from './ui/badge';
-import * as Icons from 'lucide-react';
 import { Award, Calendar, MapPin } from 'lucide-react';
+import { DynamicIcon } from './ui/DynamicIcon';
 import { usePortfolio } from '../contexts/PortfolioContext';
 
 export function Activities() {
@@ -40,8 +40,7 @@ export function Activities() {
 
           <TabsContent value="competitions">
             <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-              {activitiesData.competitions.map((item, index) => {
-                const Icon = (Icons as any)[item.icon] || Icons.Circle;
+              {(activitiesData?.competitions || []).map((item: any, index: number) => {
                 return (
                   <motion.div
                     key={index}
@@ -54,10 +53,10 @@ export function Activities() {
                       <CardHeader className="pb-4">
                         <div className="flex justify-between items-start mb-5">
                           <div className="p-3.5 bg-green-50 rounded-xl text-primary group-hover:bg-primary group-hover:text-black transition-colors duration-300">
-                            <Icon size={26} strokeWidth={1.5} />
+                            <DynamicIcon name={item.icon} size={26} strokeWidth={1.5} />
                           </div>
                           <Badge className="bg-green-100 text-green-800 hover:bg-green-200 border-none font-semibold text-sm px-3 py-1 flex items-center gap-1.5 shadow-none mt-1">
-                            <Icons.Award size={14} />
+                            <Award size={14} />
                             {item.role}
                           </Badge>
                         </div>
@@ -65,7 +64,7 @@ export function Activities() {
                           {item.title}
                         </CardTitle>
                         <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
-                          <Icons.Calendar size={16} />
+                          <Calendar size={16} />
                           <span>{item.year}</span>
                         </div>
                       </CardHeader>
@@ -83,8 +82,7 @@ export function Activities() {
 
           <TabsContent value="conferences">
             <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-              {activitiesData.conferences.map((item, index) => {
-                const Icon = (Icons as any)[item.icon] || Icons.Circle;
+              {(activitiesData?.conferences || []).map((item: any, index: number) => {
                 return (
                   <motion.div
                     key={index}
@@ -97,7 +95,7 @@ export function Activities() {
                       <CardHeader className="pb-4">
                         <div className="flex justify-between items-start mb-5">
                           <div className="p-3.5 bg-green-50 rounded-xl text-primary group-hover:bg-primary group-hover:text-black transition-colors duration-300">
-                            <Icon size={26} strokeWidth={1.5} />
+                            <DynamicIcon name={item.icon} size={26} strokeWidth={1.5} />
                           </div>
                           <Badge className="bg-green-100 text-green-800 hover:bg-green-200 border-none font-semibold text-sm px-3 py-1 flex items-center gap-1.5 shadow-none mt-1">
                             <Award size={14} />
@@ -114,7 +112,7 @@ export function Activities() {
                           </div>
                           {item.location && (
                             <div className="flex items-center gap-2">
-                              <Icons.MapPin size={16} />
+                              <MapPin size={16} />
                               <span>{item.location}</span>
                             </div>
                           )}

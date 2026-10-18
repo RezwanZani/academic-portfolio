@@ -5,6 +5,7 @@ import { Upload, Download, AlertTriangle, CheckCircle2, Loader2, Github, Copy } 
 import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import JSZip from 'jszip';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 // Import all local JSONs
 import personalInfo from '../../data/personal_info.json';
@@ -44,6 +45,7 @@ export function SetupPage() {
       for (const col of COLLECTIONS) {
         await setDoc(doc(db, col.id, 'data'), col.data);
       }
+      invalidatePortfolioCache();
       setSeedSuccess(true);
       setTimeout(() => setSeedSuccess(false), 5000);
     } catch (error) {

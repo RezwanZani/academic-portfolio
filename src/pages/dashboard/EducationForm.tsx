@@ -4,6 +4,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Save, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { invalidatePortfolioCache } from '../../contexts/PortfolioContext';
 
 export const EducationForm: React.FC = () => {
   const { register, control, handleSubmit, reset, formState: { isSubmitting } } = useForm({
@@ -21,11 +22,12 @@ export const EducationForm: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const docRef = doc(db, 'education', 'data');
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
+        if (docSnap.exists() && isMounted) {
           const data = docSnap.data();
           // Convert achievements arrays back to comma-separated strings for easy editing
           if (data.educationData) {
@@ -40,10 +42,11 @@ export const EducationForm: React.FC = () => {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
     fetchData();
+    return () => { isMounted = false; };
   }, [reset]);
 
   const onSubmit = async (data: any) => {
@@ -51,7 +54,7 @@ export const EducationForm: React.FC = () => {
       // Process achievements string back to array
       const payload = {
           ...data,
-          educationData: data.educationData.map((item: any) => {
+          educationData: (data.educationData || []).map((item: any) => {
               const { achievementsStr, ...rest } = item;
               return {
                   ...rest,
@@ -62,6 +65,7 @@ export const EducationForm: React.FC = () => {
 
       const docRef = doc(db, 'education', 'data');
       await setDoc(docRef, payload);
+      invalidatePortfolioCache();
       toast.success('Education data saved successfully!');
     } catch (error) {
       console.error("Error saving data:", error);
